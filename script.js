@@ -1,36 +1,57 @@
 const gameBoard = (function () {
-  const gameMoves = ["", "", "", "", "", "", "", "", ""];
+  const gameMoves = [];
+  let i = 0;
 
-  return { gameMoves };
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((square) => {
+    square.setAttribute("data-index", i++);
+    // gameMoves.push(square);
+  });
+
+  return { squares, gameMoves };
 })();
 
-const player = function (marker) {
-  const makeMove = function () {
-    const squares = document.querySelectorAll("[data-index]");
-    squares.forEach((square) => {
-      square.addEventListener("pointerdown", function (e) {
-        const { target } = e;
+console.log(gameBoard.gameMoves);
 
-        if (!e.target.matches("[data-index]")) {
-          return;
-        } else if (e.target.matches(`[data-index="0"]`)) {
-          gameBoard.gameMoves.splice(0, 1, `${player.marker}`);
-          square.textContent = `${player.marker}`;
-          console.log(`${player.marker}`);
+function Player(name, marker) {
+  return { name, marker };
+}
+
+function GamePlay() {
+  const player1 = Player("Player1", "X");
+  const player2 = Player("Player2", "O");
+
+  console.log(player1);
+  console.log(player2);
+
+  let activePlayer = player1;
+
+  const switchPlayer = function () {
+    if ((activePlayer = activePlayer === player1)) {
+      player2;
+    } else {
+      player1;
+    }
+  };
+
+  const placeMarker = function () {
+    for (square of gameBoard.squares.values()) {
+      square.addEventListener("pointerdown", function (e) {
+        // if (!e.target === gameBoard.gameMoves[square]) {
+        //   return;
+        // } else
+        if (e.target === gameBoard.gameMoves[square]) {
+          console.log("click");
+          gameBoard.gameMoves.splice(square, 1, `${Player.marker}`);
+          console.log(gameBoard.gameMoves);
         }
       });
-    });
+    }
   };
-  return { marker, makeMove };
-};
 
-const gamePlay = function () {
-  const player1 = player("X");
-  const player2 = player("O");
+  return { player1, player2, placeMarker };
+}
 
-  player1.makeMove();
+GamePlay();
 
-  return { player1 };
-};
-
-const playGame = gamePlay();
+// const board = gameBoard();
