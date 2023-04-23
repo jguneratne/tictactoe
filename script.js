@@ -1,14 +1,17 @@
 const gameBoard = (function () {
-  const gameMoves = [];
   let i = 0;
+  const gameMoves = [];
 
   const squares = document.querySelectorAll(".square");
   squares.forEach((square) => {
     square.setAttribute("data-index", i++);
-    gameMoves.push("");
+    square.textContent = "";
+    gameMoves.push(square);
   });
 
-  return { gameMoves, squares };
+  //const gameMoves = Array.from(squares);
+
+  return { squares, gameMoves };
 })();
 
 console.log(gameBoard.gameMoves);
@@ -40,8 +43,18 @@ function GamePlay() {
       square.addEventListener("pointerdown", function (e) {
         if (e.target !== square || square.textContent !== "") {
           return;
-        } else if (e.target === square && square.textContent === "") {
-          console.log("click");
+        } else if (
+          e.target === square &&
+          square.textContent === "" &&
+          parseInt(square.dataset.index) ===
+            parseInt(gameBoard.gameMoves.indexOf(square))
+        ) {
+          gameBoard.gameMoves.splice(
+            gameBoard.gameMoves.indexOf(square),
+            1,
+            `${activePlayer.marker}`
+          );
+          console.log(gameBoard.gameMoves);
         }
       });
     });
