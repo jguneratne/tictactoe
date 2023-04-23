@@ -5,10 +5,10 @@ const gameBoard = (function () {
   const squares = document.querySelectorAll(".square");
   squares.forEach((square) => {
     square.setAttribute("data-index", i++);
-    // gameMoves.push(square);
+    gameMoves.push("");
   });
 
-  return { squares, gameMoves };
+  return { gameMoves, squares };
 })();
 
 console.log(gameBoard.gameMoves);
@@ -25,6 +25,7 @@ function GamePlay() {
   console.log(player2);
 
   let activePlayer = player1;
+  console.log(activePlayer.marker);
 
   const switchPlayer = function () {
     if ((activePlayer = activePlayer === player1)) {
@@ -35,23 +36,20 @@ function GamePlay() {
   };
 
   const placeMarker = function () {
-    for (square of gameBoard.squares.values()) {
+    gameBoard.squares.forEach((square) => {
       square.addEventListener("pointerdown", function (e) {
-        // if (!e.target === gameBoard.gameMoves[square]) {
-        //   return;
-        // } else
-        if (e.target === gameBoard.gameMoves[square]) {
+        if (e.target !== square || square.textContent !== "") {
+          return;
+        } else if (e.target === square && square.textContent === "") {
           console.log("click");
-          gameBoard.gameMoves.splice(square, 1, `${Player.marker}`);
-          console.log(gameBoard.gameMoves);
         }
       });
-    }
+    });
   };
 
-  return { player1, player2, placeMarker };
+  return { switchPlayer, placeMarker };
 }
 
-GamePlay();
+const game = GamePlay();
 
-// const board = gameBoard();
+game.placeMarker();
