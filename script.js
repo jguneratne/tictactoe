@@ -24,17 +24,17 @@ function GamePlay() {
   const player1 = Player("Player1", "X");
   const player2 = Player("Player2", "O");
 
-  console.log(player1);
-  console.log(player2);
+  console.log(player1.marker);
+  console.log(player2.marker);
 
   let activePlayer = player1;
-  console.log(activePlayer.marker);
+  // console.log(activePlayer.marker);
 
   const switchPlayer = function () {
-    if ((activePlayer = activePlayer === player1)) {
-      player2;
+    if (activePlayer.marker === player1.marker) {
+      activePlayer.marker = player2.marker;
     } else {
-      player1;
+      activePlayer.marker = player1.marker;
     }
   };
 
@@ -55,12 +55,13 @@ function GamePlay() {
             `${activePlayer.marker}`
           );
           console.log(gameBoard.gameMoves);
+          switchPlayer();
         }
       });
     });
   };
 
-  return { switchPlayer, placeMarker };
+  return { placeMarker };
 }
 
 const game = GamePlay();
