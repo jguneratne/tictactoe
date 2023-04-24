@@ -31,10 +31,10 @@ function GamePlay() {
   // console.log(activePlayer.marker);
 
   const switchPlayer = function () {
-    if (activePlayer.marker === player1.marker) {
-      activePlayer.marker = player2.marker;
+    if (activePlayer === player1) {
+      activePlayer = player2;
     } else {
-      activePlayer.marker = player1.marker;
+      activePlayer = player1;
     }
   };
 
