@@ -104,6 +104,7 @@ function GamePlay() {
       compareMoves(winArray, row3) === true ||
       compareMoves(winArray, col1) === true ||
       compareMoves(winArray, col2) === true ||
+      compareMoves(winArray, col3) === true ||
       compareMoves(winArray, diag1) === true ||
       compareMoves(winArray, diag2) === true
     ) {
