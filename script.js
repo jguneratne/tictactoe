@@ -16,14 +16,15 @@ const gameBoard = (function () {
 
 console.log(gameBoard.gameMoves);
 
-function Player(name, marker) {
-  return { name, marker };
+function Player(name, marker, winCount) {
+  return { name, marker, winCount };
 }
 
 function GamePlay() {
-  const player1 = Player("Player1", "X");
-  const player2 = Player("Player2", "O");
+  const player1 = Player("Player1", "X", 0);
+  const player2 = Player("Player2", "O", 0);
   let winner = "";
+  let tieCount = 0;
 
   // console.log(player1.marker);
   //console.log(player2.marker);
