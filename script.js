@@ -9,6 +9,8 @@ const gameBoard = (function () {
     gameMoves.push(square);
   });
 
+  //const gameMoves = Array.from(squares);
+
   return { squares, gameMoves };
 })();
 
@@ -21,13 +23,12 @@ function Player(name, marker) {
 function GamePlay() {
   const player1 = Player("Player1", "X");
   const player2 = Player("Player2", "O");
-  let winner = "";
 
-  //console.log(player1.marker);
-  //console.log(player2.marker);
+  console.log(player1.marker);
+  console.log(player2.marker);
 
   let activePlayer = player1;
-  console.log(activePlayer);
+  // console.log(activePlayer.marker);
 
   const switchPlayer = function () {
     if (activePlayer.marker === player1.marker) {
@@ -37,23 +38,10 @@ function GamePlay() {
     }
   };
 
-  const checkWinner = function () {
-    if (
-      gameBoard.gameMoves[(0, 1, 2)] === activePlayer.marker ||
-      gameBoard.gameMoves[(3, 4, 5)] === activePlayer.marker ||
-      gameBoard.gameMoves[(6, 7, 8)] === activePlayer.marker ||
-      gameBoard.gameMoves[(0, 4, 8)] === activePlayer.marker ||
-      gameBoard.gameMoves[(2, 4, 6)] === activePlayer.marker
-    ) {
-      winner = activePlayer;
-      console.log(`${activePlayer.name}` + " is the winner!");
-    }
-  };
-
   const placeMarker = function () {
     gameBoard.squares.forEach((square) => {
       square.addEventListener("pointerdown", function (e) {
-        if (e.target !== square || square.textContent !== "" || winner) {
+        if (e.target !== square || square.textContent !== "") {
           return;
         } else if (
           e.target === square &&
@@ -67,10 +55,7 @@ function GamePlay() {
             `${activePlayer.marker}`
           );
           console.log(gameBoard.gameMoves);
-          checkWinner();
-          if (!winner) {
-            switchPlayer();
-          }
+          switchPlayer();
         }
       });
     });
