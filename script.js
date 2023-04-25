@@ -22,7 +22,6 @@ function GamePlay() {
   const player1 = Player("Player1", "X", 0);
   const player2 = Player("Player2", "O", 0);
   let moves = 0;
-
   let winner = "";
   let tieCount = 0;
 
@@ -130,7 +129,7 @@ function GamePlay() {
     }
   };
 
-  const placeMarker = function () {
+  const playRound = function () {
     gameBoard.squares.forEach((square) => {
       square.addEventListener("pointerdown", function (e) {
         if (e.target !== square || square.textContent !== "" || winner) {
@@ -153,7 +152,6 @@ function GamePlay() {
 
           checkTie();
           checkWinner();
-
           if (!winner) {
             switchPlayer();
           }
@@ -162,9 +160,9 @@ function GamePlay() {
     });
   };
 
-  return { placeMarker };
+  return { playRound };
 }
 
 const game = GamePlay();
 
-game.placeMarker();
+game.playRound();
