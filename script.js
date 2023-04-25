@@ -9,8 +9,6 @@ const gameBoard = (function () {
     gameMoves.push(square);
   });
 
-  //const gameMoves = Array.from(squares);
-
   return { squares, gameMoves };
 })();
 
@@ -124,6 +122,14 @@ function GamePlay() {
     }
   };
 
+  const checkTie = function () {
+    if (moves === 9 && !winner) {
+      tieCount++;
+      console.log("It's a tie!");
+      console.log("Ties: " + `${tieCount}`);
+    }
+  };
+
   const placeMarker = function () {
     gameBoard.squares.forEach((square) => {
       square.addEventListener("pointerdown", function (e) {
@@ -145,13 +151,10 @@ function GamePlay() {
           );
           console.log(gameBoard.gameMoves);
 
+          checkTie();
           checkWinner();
 
-          if (moves === 9 && !winner) {
-            tieCount++;
-            console.log("It's a tie!");
-            console.log("Ties: " + `${tieCount}`);
-          } else if (!winner) {
+          if (!winner) {
             switchPlayer();
           }
         }
