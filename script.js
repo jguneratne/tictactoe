@@ -23,6 +23,8 @@ function Player(name, marker, winCount) {
 function GamePlay() {
   const player1 = Player("Player1", "X", 0);
   const player2 = Player("Player2", "O", 0);
+  let moves = 0;
+
   let winner = "";
   let tieCount = 0;
 
@@ -111,6 +113,14 @@ function GamePlay() {
     ) {
       winner = activePlayer;
       console.log(`${activePlayer.name}` + " is the winner!");
+
+      if (winner === player1) {
+        player1.winCount++;
+        console.log(player1.name + " score: " + player1.winCount);
+      } else if (winner === player2) {
+        player2.winCount++;
+        console.log(player2.name + " score: " + player2.winCount);
+      }
     }
   };
 
@@ -125,14 +135,23 @@ function GamePlay() {
           parseInt(square.dataset.index) ===
             parseInt(gameBoard.gameMoves.indexOf(square))
         ) {
+          moves++;
+
+          console.log(moves);
           gameBoard.gameMoves.splice(
             gameBoard.gameMoves.indexOf(square),
             1,
             `${activePlayer.marker}`
           );
           console.log(gameBoard.gameMoves);
+
           checkWinner();
-          if (!winner) {
+
+          if (moves === 9 && !winner) {
+            tieCount++;
+            console.log("It's a tie!");
+            console.log("Ties: " + `${tieCount}`);
+          } else if (!winner) {
             switchPlayer();
           }
         }
