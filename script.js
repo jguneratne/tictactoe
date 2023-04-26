@@ -9,7 +9,7 @@ const gameBoard = (function () {
     gameMoves.push(square);
   });
 
-  return { squares, gameMoves };
+  return { i, squares, gameMoves };
 })();
 
 console.log(gameBoard.gameMoves);
@@ -114,9 +114,11 @@ function GamePlay() {
       if (winner === player1) {
         player1.winCount++;
         console.log(player1.name + " score: " + player1.winCount);
+        newRound();
       } else if (winner === player2) {
         player2.winCount++;
         console.log(player2.name + " score: " + player2.winCount);
+        newRound();
       }
     }
   };
@@ -126,6 +128,7 @@ function GamePlay() {
       tieCount++;
       console.log("It's a tie!");
       console.log("Ties: " + `${tieCount}`);
+      newRound();
     }
   };
 
@@ -141,8 +144,7 @@ function GamePlay() {
             parseInt(gameBoard.gameMoves.indexOf(square))
         ) {
           moves++;
-
-          console.log(moves);
+          //console.log(moves);
           gameBoard.gameMoves.splice(
             gameBoard.gameMoves.indexOf(square),
             1,
@@ -158,6 +160,26 @@ function GamePlay() {
         }
       });
     });
+  };
+
+  const newRound = function () {
+    let ask = confirm("Play another round?");
+    if (confirm(ask) == true) {
+      gameBoard.gameMoves = [];
+      gameBoard.i = 0;
+      activePlayer = player1;
+      winner = "";
+
+      gameBoard.squares.forEach((square) => {
+        square.setAttribute("data-index", gameBoard.i++);
+        square.textContent = "";
+        gameBoard.gameMoves.push(square);
+
+        playRound();
+      });
+    } else {
+      return;
+    }
   };
 
   return { playRound };
