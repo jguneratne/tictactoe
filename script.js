@@ -167,15 +167,13 @@ function GamePlay() {
     if (confirm(ask) == true) {
       gameBoard.gameMoves = [];
       gameBoard.i = 0;
-      activePlayer = player1;
+      moves = 0;
       winner = "";
 
       gameBoard.squares.forEach((square) => {
         square.setAttribute("data-index", gameBoard.i++);
         square.textContent = "";
         gameBoard.gameMoves.push(square);
-
-        playRound();
       });
     } else {
       return;
