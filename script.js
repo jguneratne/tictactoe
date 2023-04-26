@@ -176,8 +176,16 @@ function GamePlay() {
         gameBoard.gameMoves.push(square);
       });
     } else {
-      return;
+      newGame();
     }
+  };
+
+  const newGame = function () {
+    newRound();
+    player1.wins = 0;
+    player2.wins = 0;
+    tieCount = 0;
+    activePlayer = player1;
   };
 
   return { playRound };
