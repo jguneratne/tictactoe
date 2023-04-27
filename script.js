@@ -2,7 +2,7 @@ const gameBoard = (function () {
   let i = 0;
   const gameMoves = [];
 
-  const squares = document.querySelectorAll(".square");
+  const squares = document.querySelectorAll(".sq-text");
   squares.forEach((square) => {
     square.setAttribute("data-index", i++);
     square.textContent = "";
@@ -150,6 +150,7 @@ function GamePlay() {
             1,
             `${activePlayer.marker}`
           );
+          //DisplayGame.showMarker();
           console.log(gameBoard.gameMoves);
 
           checkTie();
@@ -188,9 +189,24 @@ function GamePlay() {
     activePlayer = player1;
   };
 
-  return { playRound };
+  return { activePlayer, playRound };
+}
+
+function DisplayGame() {
+  const showMarker = function () {
+    gameBoard.squares.forEach((square) => {
+      if (
+        (square.textContent = `${gameBoard.gameMoves[gameBoard.gameMoves.i]}`)
+      ) {
+        square.style.display = "initial";
+      }
+    });
+  };
+  return { showMarker };
 }
 
 const game = GamePlay();
+const display = DisplayGame();
 
 game.playRound();
+display.showMarker();
