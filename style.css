@@ -54,16 +54,8 @@ header {
 }
 
 .square {
-  display: grid;
-  align-content: center;
-  justify-content: center;
   background-color: white;
-}
-
-.square > p {
-  font-size: 3ch;
-  color: black;
-  display: none;
+  text-align: center;
 }
 
 .scores {
