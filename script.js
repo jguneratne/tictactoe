@@ -2,15 +2,16 @@ const gameBoard = (function () {
   let i = 0;
   const gameMoves = [];
 
-  const squares = Array.from(document.getElementsByClassName("square"));
-  console.log(squares);
+  const cells = Array.from(document.getElementsByClassName("square"));
+  //console.log(squares);
 
-  squares.forEach((square) => {
-    square.setAttribute("data-index", i++);
-    gameMoves.push(square);
+  cells.forEach((cell) => {
+    cell.setAttribute("data-index", i++);
+    cell.textContent = "";
+    gameMoves.push(cell);
   });
 
-  return { i, squares, gameMoves };
+  return { i, cells, gameMoves };
 })();
 
 console.log(gameBoard.gameMoves);
@@ -22,6 +23,7 @@ function Player(name, marker, winCount) {
 function GamePlay() {
   const player1 = Player("Player1", "X", 0);
   const player2 = Player("Player2", "O", 0);
+  const squares = document.querySelectorAll(".square[data-index]");
   let moves = 0;
   let winner = "";
   let tieCount = 0;
@@ -134,25 +136,20 @@ function GamePlay() {
   };
 
   const playRound = function () {
-    gameBoard.squares.forEach((square) => {
+    squares.forEach((square) => {
       square.addEventListener("pointerdown", function (e) {
-        if (e.target !== square || square.textContent !== "" || winner) {
+        if (!square || square.textContent !== "" || winner) {
           return;
-        } else if (
-          e.target === square &&
-          square.textContent === "" &&
-          parseInt(square.dataset.index) ===
-            parseInt(gameBoard.gameMoves.indexOf(square))
-        ) {
+        } else if (square && square.textContent === "") {
           moves++;
-          //console.log(moves);
+          console.log(moves);
           gameBoard.gameMoves.splice(
             gameBoard.gameMoves.indexOf(square),
             1,
             `${activePlayer.marker}`
           );
-          display.showMarker(`${activePlayer.marker}`);
           console.log(gameBoard.gameMoves);
+          display.showMarker(`${activePlayer.marker}`);
 
           checkTie();
           checkWinner();
@@ -190,17 +187,11 @@ function GamePlay() {
     activePlayer = player1;
   };
 
-  return { playRound, winner };
+  return { squares, winner, playRound };
 }
 
 function GameDisplay() {
-  const showMarker = function (marker) {
-    gameBoard.squares.forEach((square) => {
-      square.textContent = marker;
-    });
-  };
-
-  return { showMarker };
+  // return { showMarker };
 }
 
 const game = GamePlay();
