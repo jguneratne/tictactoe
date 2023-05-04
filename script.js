@@ -150,11 +150,8 @@ function GamePlay() {
             `${activePlayer.marker}`
           );
           console.log(gameBoard.gameMoves);
-          //display.showMarker();
-          display.showMarker(
-            gameBoard.gameMoves.indexOf(square),
-            `${activePlayer.marker}`
-          );
+
+          display.showMarker(square, `${activePlayer.marker}`);
 
           checkTie();
           checkWinner();
@@ -196,8 +193,8 @@ function GamePlay() {
 }
 
 function GameDisplay() {
-  const showMarker = function (index, marker) {
-    game.squares[index].textContent = marker;
+  const showMarker = function (square, marker) {
+    square.textContent = marker;
   };
 
   return { showMarker };
