@@ -171,10 +171,10 @@ function GamePlay() {
       moves = 0;
       winner = "";
 
-      gameBoard.squares.forEach((square) => {
-        square.setAttribute("data-index", gameBoard.i++);
-        square.textContent = "";
-        gameBoard.gameMoves.push(square);
+      gameBoard.cells.forEach((cell) => {
+        cell.setAttribute("data-index", gameBoard.i++);
+        cell.textContent = "";
+        gameBoard.gameMoves.push(cell);
       });
     } else {
       newGame();
