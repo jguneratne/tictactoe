@@ -23,7 +23,8 @@ function Player(name, marker, winCount) {
 function GamePlay() {
   const player1 = Player("Player1", "X", 0);
   const player2 = Player("Player2", "O", 0);
-  const squares = document.querySelectorAll(".square[data-index]");
+  const squares = Array.from(document.querySelectorAll(".square[data-index]"));
+  // console.log(squares);
   let moves = 0;
   let winner = "";
   let tieCount = 0;
@@ -142,14 +143,18 @@ function GamePlay() {
           return;
         } else if (square && square.textContent === "") {
           moves++;
-          console.log(moves);
+          //console.log(moves);
           gameBoard.gameMoves.splice(
             gameBoard.gameMoves.indexOf(square),
             1,
             `${activePlayer.marker}`
           );
           console.log(gameBoard.gameMoves);
-          display.showMarker(`${activePlayer.marker}`);
+          //display.showMarker();
+          display.showMarker(
+            gameBoard.gameMoves.indexOf(square),
+            `${activePlayer.marker}`
+          );
 
           checkTie();
           checkWinner();
@@ -187,11 +192,15 @@ function GamePlay() {
     activePlayer = player1;
   };
 
-  return { squares, winner, playRound };
+  return { squares, playRound };
 }
 
 function GameDisplay() {
-  // return { showMarker };
+  const showMarker = function (index, marker) {
+    game.squares[index].textContent = marker;
+  };
+
+  return { showMarker };
 }
 
 const game = GamePlay();
