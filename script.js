@@ -38,8 +38,10 @@ function GamePlay() {
   const switchPlayer = function () {
     if (activePlayer === player1) {
       activePlayer = player2;
+      display.showTurn(activePlayer.name, activePlayer.name);
     } else {
       activePlayer = player1;
+      display.showTurn(activePlayer.name, activePlayer.name);
     }
   };
 
@@ -117,12 +119,12 @@ function GamePlay() {
 
       if (winner === player1) {
         player1.winCount++;
-        display.displayScores(player1.winCount, player2.winCount, tieCount);
+        display.showScores(player1.winCount, player2.winCount, tieCount);
         console.log(player1.name + " score: " + player1.winCount);
         newRound();
       } else if (winner === player2) {
         player2.winCount++;
-        display.displayScores(player1.winCount, player2.winCount, tieCount);
+        display.showScores(player1.winCount, player2.winCount, tieCount);
         console.log(player2.name + " score: " + player2.winCount);
         newRound();
       }
@@ -132,7 +134,7 @@ function GamePlay() {
   const checkTie = function () {
     if (moves === 9 && !winner) {
       tieCount++;
-      display.displayScores(player1.winCount, player2.winCount, tieCount);
+      display.showScores(player1.winCount, player2.winCount, tieCount);
       console.log("It's a tie!");
       console.log("Ties: " + `${tieCount}`);
       newRound();
@@ -174,6 +176,8 @@ function GamePlay() {
       moves = 0;
       winner = "";
 
+      display.showTurn(activePlayer.name, activePlayer.name);
+
       gameBoard.cells.forEach((cell) => {
         cell.setAttribute("data-index", gameBoard.i++);
         cell.textContent = "";
@@ -190,6 +194,8 @@ function GamePlay() {
     player2.wins = 0;
     tieCount = 0;
     activePlayer = player1;
+
+    display.showTurn(activePlayer.name, activePlayer.name);
   };
 
   return { squares, playRound };
@@ -200,17 +206,30 @@ function GameDisplay() {
     square.textContent = marker;
   };
 
-  const displayScores = function (p1Tally, p2Tally, tiesTally) {
-    p1Score = document.querySelector(".p1-tally");
-    p2Score = document.querySelector(".p2-tally");
-    tiesScore = document.querySelector(".ties-tally");
+  const showScores = function (p1Tally, p2Tally, tiesTally) {
+    const p1Score = document.querySelector(".p1-tally");
+    const p2Score = document.querySelector(".p2-tally");
+    const tiesScore = document.querySelector(".ties-tally");
 
     p1Score.textContent = p1Tally;
     p2Score.textContent = p2Tally;
     tiesScore.textContent = tiesTally;
   };
 
-  return { showMarker, displayScores };
+  const showTurn = function (p1turn, p2turn) {
+    const p1Turn = document.querySelector(".p1-turn");
+    const p2Turn = document.querySelector(".p2-turn");
+
+    if (p1turn) {
+      p1Turn.textContent = `${p1turn}` + "'s" + " turn!";
+      p2Turn.textContent = "";
+    } else if (p2turn) {
+      p1Turn.textContent = "";
+      p2Turn.textContent = `${p2turn}` + "'s" + " turn!";
+    }
+  };
+
+  return { showMarker, showScores, showTurn };
 }
 
 const game = GamePlay();
