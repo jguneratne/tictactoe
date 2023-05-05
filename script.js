@@ -117,10 +117,12 @@ function GamePlay() {
 
       if (winner === player1) {
         player1.winCount++;
+        display.displayScores(player1.winCount, player2.winCount, tieCount);
         console.log(player1.name + " score: " + player1.winCount);
         newRound();
       } else if (winner === player2) {
         player2.winCount++;
+        display.displayScores(player1.winCount, player2.winCount, tieCount);
         console.log(player2.name + " score: " + player2.winCount);
         newRound();
       }
@@ -130,6 +132,7 @@ function GamePlay() {
   const checkTie = function () {
     if (moves === 9 && !winner) {
       tieCount++;
+      display.displayScores(player1.winCount, player2.winCount, tieCount);
       console.log("It's a tie!");
       console.log("Ties: " + `${tieCount}`);
       newRound();
@@ -197,7 +200,17 @@ function GameDisplay() {
     square.textContent = marker;
   };
 
-  return { showMarker };
+  const displayScores = function (p1Tally, p2Tally, tiesTally) {
+    p1Score = document.querySelector(".p1-tally");
+    p2Score = document.querySelector(".p2-tally");
+    tiesScore = document.querySelector(".ties-tally");
+
+    p1Score.textContent = p1Tally;
+    p2Score.textContent = p2Tally;
+    tiesScore.textContent = tiesTally;
+  };
+
+  return { showMarker, displayScores };
 }
 
 const game = GamePlay();
