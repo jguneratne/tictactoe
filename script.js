@@ -16,6 +16,17 @@ const gameBoard = (function () {
 
 console.log(gameBoard.gameMoves);
 
+function getBoard() {
+  gameBoard.gameMoves = [];
+  gameBoard.i = 0;
+
+  gameBoard.cells.forEach((cell) => {
+    cell.setAttribute("data-index", gameBoard.i++);
+    cell.textContent = "";
+    gameBoard.gameMoves.push(cell);
+  });
+}
+
 function Player(name, marker, winCount) {
   return { name, marker, winCount };
 }
@@ -166,23 +177,24 @@ function GamePlay() {
   };
 
   const newRound = function () {
-    gameBoard.gameMoves = [];
-    gameBoard.i = 0;
+    // gameBoard.gameMoves = [];
+    // gameBoard.i = 0;
+    getBoard();
     moves = 0;
     winner = "";
 
     display.showScores(player1.winCount, player2.winCount, tieCount);
     display.showTurn(activePlayer.name, activePlayer.name);
 
-    gameBoard.cells.forEach((cell) => {
-      cell.setAttribute("data-index", gameBoard.i++);
-      cell.textContent = "";
-      gameBoard.gameMoves.push(cell);
-    });
+    // gameBoard.cells.forEach((cell) => {
+    //   cell.setAttribute("data-index", gameBoard.i++);
+    //   cell.textContent = "";
+    //   gameBoard.gameMoves.push(cell);
+    // });
   };
 
   const newGame = function () {
-    newRound();
+    getBoard();
     player1.wins = 0;
     player2.wins = 0;
     tieCount = 0;
@@ -191,7 +203,7 @@ function GamePlay() {
     display.showTurn(activePlayer.name, activePlayer.name);
   };
 
-  return { squares, playRound, newRound };
+  return { squares, playRound, newRound, newGame };
 }
 
 function GameDisplay() {
@@ -229,6 +241,7 @@ function GameDisplay() {
     if (winner || tie) {
       winScreen.style.display = "initial";
       winResult.textContent = result;
+      showNewGame();
       showNewRound();
     }
   };
@@ -239,6 +252,15 @@ function GameDisplay() {
     letsGo.addEventListener("pointerdown", function () {
       winScreen.style.display = "none";
       game.newRound();
+    });
+  };
+
+  const showNewGame = function () {
+    const noThanks = document.querySelector(".no");
+
+    noThanks.addEventListener("pointerdown", function () {
+      winScreen.style.display = "none";
+      game.newGame();
     });
   };
 
