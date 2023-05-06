@@ -132,11 +132,11 @@ function GamePlay() {
       if (winner === player1) {
         player1.winCount++;
         result = player1.name + " wins!";
-        setTimeout(display.showWinner, 1000, winner, tieCount, result);
+        setTimeout(display.showWinner, 200, winner, tieCount, result);
       } else if (winner === player2) {
         player2.winCount++;
         result = player2.name + " wins!";
-        setTimeout(display.showWinner, 1000, winner, tieCount, result);
+        setTimeout(display.showWinner, 200, winner, tieCount, result);
       }
     }
   };
@@ -145,7 +145,7 @@ function GamePlay() {
     if (moves === 9 && !winner) {
       tieCount++;
       result = "It's a tie!";
-      setTimeout(display.showWinner, 20, winner, tieCount, result);
+      setTimeout(display.showWinner, 200, winner, tieCount, result);
     }
   };
 
