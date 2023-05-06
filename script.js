@@ -177,20 +177,12 @@ function GamePlay() {
   };
 
   const newRound = function () {
-    // gameBoard.gameMoves = [];
-    // gameBoard.i = 0;
     getBoard();
     moves = 0;
     winner = "";
 
     display.showScores(player1.winCount, player2.winCount, tieCount);
     display.showTurn(activePlayer.name, activePlayer.name);
-
-    // gameBoard.cells.forEach((cell) => {
-    //   cell.setAttribute("data-index", gameBoard.i++);
-    //   cell.textContent = "";
-    //   gameBoard.gameMoves.push(cell);
-    // });
   };
 
   const newGame = function () {
@@ -199,6 +191,7 @@ function GamePlay() {
     player2.wins = 0;
     tieCount = 0;
     activePlayer = player1;
+    playRound();
 
     display.showTurn(activePlayer.name, activePlayer.name);
   };
@@ -241,7 +234,6 @@ function GameDisplay() {
     if (winner || tie) {
       winScreen.style.display = "initial";
       winResult.textContent = result;
-      showNewGame();
       showNewRound();
     }
   };
@@ -264,10 +256,11 @@ function GameDisplay() {
     });
   };
 
-  return { showMarker, showScores, showTurn, showWinner };
+  return { showMarker, showScores, showTurn, showWinner, showNewGame };
 }
 
 const game = GamePlay();
 const display = GameDisplay();
 
 game.playRound();
+display.showNewGame();
