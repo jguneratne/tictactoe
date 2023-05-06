@@ -28,6 +28,7 @@ function GamePlay() {
   let moves = 0;
   let winner = "";
   let tieCount = 0;
+  let result = "";
 
   // console.log(player1.marker);
   //console.log(player2.marker);
@@ -119,13 +120,17 @@ function GamePlay() {
 
       if (winner === player1) {
         player1.winCount++;
+        result = player1.name + " wins!";
+        setTimeout(display.showWinner, 1000, winner, tieCount, result);
         display.showScores(player1.winCount, player2.winCount, tieCount);
-        console.log(player1.name + " score: " + player1.winCount);
+        //console.log(player1.name + " score: " + player1.winCount);
         newRound();
       } else if (winner === player2) {
         player2.winCount++;
+        result = player2.name + " wins!";
+        setTimeout(display.showWinner, 1000, winner, tieCount, result);
         display.showScores(player1.winCount, player2.winCount, tieCount);
-        console.log(player2.name + " score: " + player2.winCount);
+        //console.log(player2.name + " score: " + player2.winCount);
         newRound();
       }
     }
@@ -134,9 +139,11 @@ function GamePlay() {
   const checkTie = function () {
     if (moves === 9 && !winner) {
       tieCount++;
+      result = "It's a tie!";
+      setTimeout(display.showWinner, 20, winner, tieCount, result);
       display.showScores(player1.winCount, player2.winCount, tieCount);
-      console.log("It's a tie!");
-      console.log("Ties: " + `${tieCount}`);
+      // console.log("It's a tie!");
+      // console.log("Ties: " + `${tieCount}`);
       newRound();
     }
   };
@@ -169,23 +176,18 @@ function GamePlay() {
   };
 
   const newRound = function () {
-    let ask = confirm("Play another round?");
-    if (confirm(ask) == true) {
-      gameBoard.gameMoves = [];
-      gameBoard.i = 0;
-      moves = 0;
-      winner = "";
+    gameBoard.gameMoves = [];
+    gameBoard.i = 0;
+    moves = 0;
+    winner = "";
 
-      display.showTurn(activePlayer.name, activePlayer.name);
+    display.showTurn(activePlayer.name, activePlayer.name);
 
-      gameBoard.cells.forEach((cell) => {
-        cell.setAttribute("data-index", gameBoard.i++);
-        cell.textContent = "";
-        gameBoard.gameMoves.push(cell);
-      });
-    } else {
-      newGame();
-    }
+    gameBoard.cells.forEach((cell) => {
+      cell.setAttribute("data-index", gameBoard.i++);
+      cell.textContent = "";
+      gameBoard.gameMoves.push(cell);
+    });
   };
 
   const newGame = function () {
@@ -198,10 +200,13 @@ function GamePlay() {
     display.showTurn(activePlayer.name, activePlayer.name);
   };
 
-  return { squares, playRound };
+  return { squares, playRound, newRound };
 }
 
 function GameDisplay() {
+  const winScreen = document.querySelector(".win-screen-container");
+  const winResult = document.querySelector(".result");
+
   const showMarker = function (square, marker) {
     square.textContent = marker;
   };
@@ -229,7 +234,24 @@ function GameDisplay() {
     }
   };
 
-  return { showMarker, showScores, showTurn };
+  const showWinner = function (winner, tie, result) {
+    if (winner || tie) {
+      winScreen.style.display = "initial";
+      winResult.textContent = result;
+      showNewRound();
+    }
+  };
+
+  const showNewRound = function () {
+    const letsGo = document.querySelector(".yes");
+
+    letsGo.addEventListener("pointerdown", function () {
+      winScreen.style.display = "none";
+      game.newRound();
+    });
+  };
+
+  return { showMarker, showScores, showTurn, showWinner };
 }
 
 const game = GamePlay();

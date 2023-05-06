@@ -93,6 +93,10 @@ header {
   color: black;
 }
 
+.win-screen-container {
+  display: none;
+}
+
 .win-screen {
   position: absolute;
   left: 0;
