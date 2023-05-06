@@ -122,16 +122,10 @@ function GamePlay() {
         player1.winCount++;
         result = player1.name + " wins!";
         setTimeout(display.showWinner, 1000, winner, tieCount, result);
-        display.showScores(player1.winCount, player2.winCount, tieCount);
-        //console.log(player1.name + " score: " + player1.winCount);
-        newRound();
       } else if (winner === player2) {
         player2.winCount++;
         result = player2.name + " wins!";
         setTimeout(display.showWinner, 1000, winner, tieCount, result);
-        display.showScores(player1.winCount, player2.winCount, tieCount);
-        //console.log(player2.name + " score: " + player2.winCount);
-        newRound();
       }
     }
   };
@@ -141,10 +135,6 @@ function GamePlay() {
       tieCount++;
       result = "It's a tie!";
       setTimeout(display.showWinner, 20, winner, tieCount, result);
-      display.showScores(player1.winCount, player2.winCount, tieCount);
-      // console.log("It's a tie!");
-      // console.log("Ties: " + `${tieCount}`);
-      newRound();
     }
   };
 
@@ -181,6 +171,7 @@ function GamePlay() {
     moves = 0;
     winner = "";
 
+    display.showScores(player1.winCount, player2.winCount, tieCount);
     display.showTurn(activePlayer.name, activePlayer.name);
 
     gameBoard.cells.forEach((cell) => {
