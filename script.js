@@ -50,11 +50,10 @@ function GamePlay() {
   const switchPlayer = function () {
     if (activePlayer === player1) {
       activePlayer = player2;
-      display.showTurn(activePlayer.name, activePlayer.name);
     } else {
       activePlayer = player1;
-      display.showTurn(activePlayer.name, activePlayer.name);
     }
+    display.showTurn(activePlayer, activePlayer.name);
   };
 
   const checkWinner = function () {
@@ -183,7 +182,7 @@ function GamePlay() {
     winner = "";
 
     display.showScores(player1.winCount, player2.winCount, tieCount);
-    display.showTurn(activePlayer.name, activePlayer.name);
+    display.showTurn(activePlayer, activePlayer.name);
   };
 
   const newGame = function () {
@@ -193,11 +192,9 @@ function GamePlay() {
     tieCount = 0;
     activePlayer = player1;
     playRound();
-
-    display.showTurn(activePlayer.name, activePlayer.name);
   };
 
-  return { squares, playRound, newRound, newGame };
+  return { squares, player1, player2, playRound, newRound, newGame };
 }
 
 function GameDisplay() {
@@ -218,16 +215,16 @@ function GameDisplay() {
     tiesScore.textContent = tiesTally;
   };
 
-  const showTurn = function (p1turn, p2turn) {
+  const showTurn = function (whoseTurn, name) {
     const p1Turn = document.querySelector(".p1-turn");
     const p2Turn = document.querySelector(".p2-turn");
 
-    if (p1turn) {
-      p1Turn.textContent = `${p1turn}` + "'s" + " turn!";
+    if (whoseTurn === game.player1) {
+      p1Turn.textContent = `${name}` + "'s" + " turn!";
       p2Turn.textContent = "";
-    } else if (p2turn) {
+    } else if (whoseTurn === game.player2) {
       p1Turn.textContent = "";
-      p2Turn.textContent = `${p2turn}` + "'s" + " turn!";
+      p2Turn.textContent = `${name}` + "'s" + " turn!";
     }
   };
 
