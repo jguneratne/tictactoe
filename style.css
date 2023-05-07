@@ -53,6 +53,7 @@ header {
   gap: 1ch;
 
   background-color: black;
+  cursor: pointer;
 }
 
 .square {
