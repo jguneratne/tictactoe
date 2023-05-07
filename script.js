@@ -150,6 +150,7 @@ function GamePlay() {
   };
 
   const playRound = function () {
+    newRound();
     squares.forEach((square) => {
       square.addEventListener("pointerdown", function (e) {
         if (!square || square.textContent !== "" || winner) {
