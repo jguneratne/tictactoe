@@ -36,6 +36,7 @@ function GamePlay() {
   const player2 = Player("Player2", "O", 0);
   const squares = Array.from(document.querySelectorAll(".square[data-index]"));
   // console.log(squares);
+  const homeScreen = document.querySelector(".home-container");
   let moves = 0;
   let winner = "";
   let tieCount = 0;
@@ -186,15 +187,23 @@ function GamePlay() {
   };
 
   const newGame = function () {
-    getBoard();
-    player1.wins = 0;
-    player2.wins = 0;
-    tieCount = 0;
-    activePlayer = player1;
-    playRound();
+    const noThanks = document.querySelector(".no");
+
+    noThanks.addEventListener("pointerdown", function () {
+      location.reload();
+    });
   };
 
-  return { squares, player1, player2, playRound, newRound, newGame };
+  const startGame = function () {
+    const letsPlay = document.querySelector(".start-game");
+
+    letsPlay.addEventListener("pointerdown", function () {
+      homeScreen.style.display = "none";
+      playRound();
+    });
+  };
+
+  return { squares, player1, player2, startGame, newRound, newGame };
 }
 
 function GameDisplay() {
@@ -245,20 +254,11 @@ function GameDisplay() {
     });
   };
 
-  const showNewGame = function () {
-    const noThanks = document.querySelector(".no");
-
-    noThanks.addEventListener("pointerdown", function () {
-      winScreen.style.display = "none";
-      game.newGame();
-    });
-  };
-
-  return { showMarker, showScores, showTurn, showWinner, showNewGame };
+  return { showMarker, showScores, showTurn, showWinner, winScreen };
 }
 
 const game = GamePlay();
 const display = GameDisplay();
 
-game.playRound();
-display.showNewGame();
+game.startGame();
+game.newGame();
