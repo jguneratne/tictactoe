@@ -21,15 +21,75 @@ header {
 }
 
 /* Game Area */
-.main {
-  height: 3fr;
+
+.home-container {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 45ch;
+  width: 75ch;
+  border-radius: 1.5ch;
+  outline: 1px solid black;
+  outline-offset: -1ch;
+  background-color: lightblue;
+}
+
+.home-screen {
   display: grid;
-  grid-template-rows: 2fr 2fr;
+  grid-template-rows: 1fr 1.4fr 1fr;
+  justify-items: center;
+}
+
+.names {
+  grid-area: 2 / 1 / 3 / 2;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  gap: 4ch;
+}
+
+.btn-div {
+  grid-area: 3 / 1 / 4 / 2;
+  justify-content: center;
+  padding-bottom: 3ch;
+}
+
+button.start-game {
+  width: 20ch;
+  height: 5ch;
+}
+
+.playerX-name-div {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.playerO-name-div {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.player-name-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label[for="pX-name"],
+label[for="pO-name"] {
+  height: 5ch;
+}
+
+input[type="text"] {
+  text-align: center;
+  width: 25ch;
+  height: 5ch;
 }
 
 .game-box {
-  grid-area: 1 / 1 / 2 / 2;
-
   display: grid;
   grid-template-rows: 4fr 1fr;
 }
