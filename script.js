@@ -31,9 +31,25 @@ function Player(name, marker, winCount) {
   return { name, marker, winCount };
 }
 
+function PlayerNames() {
+  const start = document.querySelector(".start-game");
+  const p1Name = document.querySelector(".pX-name").value;
+  const p2Name = document.querySelector(".pO-name").value;
+
+  const getNames = function () {
+    start.addEventListener("submit", function (e) {
+      e.preventDefault();
+      //p1Name.value;
+      //p2Name.value;
+    });
+  };
+  return { getNames, p1Name, p2Name };
+}
+
 function GamePlay() {
-  const player1 = Player("Player1", "X", 0);
-  const player2 = Player("Player2", "O", 0);
+  const player1 = Player(names.p1Name, "X", 0);
+  const player2 = Player(names.p2Name, "O", 0);
+
   const squares = Array.from(document.querySelectorAll(".square[data-index]"));
   // console.log(squares);
   const homeScreen = document.querySelector(".home-container");
@@ -198,6 +214,7 @@ function GamePlay() {
     const letsPlay = document.querySelector(".start-game");
 
     letsPlay.addEventListener("pointerdown", function () {
+      names.getNames();
       homeScreen.style.display = "none";
       playRound();
     });
@@ -257,6 +274,7 @@ function GameDisplay() {
   return { showMarker, showScores, showTurn, showWinner, winScreen };
 }
 
+const names = PlayerNames();
 const game = GamePlay();
 const display = GameDisplay();
 
