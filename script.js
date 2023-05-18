@@ -48,28 +48,30 @@ const playerNames = (function () {
     console.log(player2);
 
     homeScreen.style.display = "none";
-    game.getActivePlayer(player1);
-    game.switchPlayer(player1, player2);
-    game.checkWinner(player1, player2);
-    game.newRound(player1, player2);
+    game.getPlayers(player1, player2);
     game.playRound();
   });
 })();
 
 function GamePlay() {
+  const player1 = Player(names.p1Name, "X", 0);
+  const player2 = Player(names.p2Name, "O", 0);
+
   const squares = Array.from(document.querySelectorAll(".square[data-index]"));
 
-  let activePlayer = "";
+  const getPlayers = function (player1, player2) {
+    console.log(player1, player2);
+  };
+
+  let activePlayer = player1;
+  console.log(activePlayer);
+
   let moves = 0;
   let winner = "";
   let tieCount = 0;
   let result = "";
 
-  const getActivePlayer = function (player) {
-    activePlayer = player;
-  };
-
-  const switchPlayer = function (player1, player2) {
+  const switchPlayer = function () {
     if (activePlayer === player1) {
       activePlayer = player2;
     } else {
@@ -78,7 +80,7 @@ function GamePlay() {
     display.showTurn(activePlayer, activePlayer.name);
   };
 
-  const checkWinner = function (player1, player2) {
+  const checkWinner = function () {
     const winArray = [
       `${activePlayer.marker}`,
       `${activePlayer.marker}`,
@@ -198,7 +200,7 @@ function GamePlay() {
     });
   };
 
-  const newRound = function (player1, player2) {
+  const newRound = function () {
     getBoard();
     moves = 0;
     winner = "";
@@ -217,9 +219,7 @@ function GamePlay() {
 
   return {
     squares,
-    getActivePlayer,
-    switchPlayer,
-    checkWinner,
+    getPlayers,
     playRound,
     newRound,
     newGame,
@@ -280,5 +280,4 @@ function GameDisplay() {
 const game = GamePlay();
 const display = GameDisplay();
 
-//game.startGame();
 game.newGame();
