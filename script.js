@@ -31,40 +31,45 @@ function Player(name, marker, winCount) {
   return { name, marker, winCount };
 }
 
-function PlayerNames() {
-  const start = document.querySelector(".start-game");
-  const p1Name = document.querySelector(".pX-name").value;
-  const p2Name = document.querySelector(".pO-name").value;
+const playerNames = (function () {
+  const namesForm = document.querySelector(".names");
+  const homeScreen = document.querySelector(".home-container");
 
-  const getNames = function () {
-    start.addEventListener("submit", function (e) {
-      e.preventDefault();
-      //p1Name.value;
-      //p2Name.value;
-    });
-  };
-  return { getNames, p1Name, p2Name };
-}
+  namesForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const playerNames = new FormData(names);
+    const getNames = [...playerNames.values()];
+    console.log(getNames);
+
+    let player1 = Player(getNames[0], "X", 0);
+    console.log(player1);
+    let player2 = Player(getNames[1], "O", 0);
+    console.log(player2);
+
+    homeScreen.style.display = "none";
+    game.getActivePlayer(player1);
+    game.switchPlayer(player1, player2);
+    game.checkWinner(player1, player2);
+    game.newRound(player1, player2);
+    game.playRound();
+  });
+})();
 
 function GamePlay() {
-  const player1 = Player(names.p1Name, "X", 0);
-  const player2 = Player(names.p2Name, "O", 0);
-
   const squares = Array.from(document.querySelectorAll(".square[data-index]"));
-  // console.log(squares);
-  const homeScreen = document.querySelector(".home-container");
+
+  let activePlayer = "";
   let moves = 0;
   let winner = "";
   let tieCount = 0;
   let result = "";
 
-  // console.log(player1.marker);
-  //console.log(player2.marker);
+  const getActivePlayer = function (player) {
+    activePlayer = player;
+  };
 
-  let activePlayer = player1;
-  // console.log(activePlayer.marker);
-
-  const switchPlayer = function () {
+  const switchPlayer = function (player1, player2) {
     if (activePlayer === player1) {
       activePlayer = player2;
     } else {
@@ -73,7 +78,7 @@ function GamePlay() {
     display.showTurn(activePlayer, activePlayer.name);
   };
 
-  const checkWinner = function () {
+  const checkWinner = function (player1, player2) {
     const winArray = [
       `${activePlayer.marker}`,
       `${activePlayer.marker}`,
@@ -193,7 +198,7 @@ function GamePlay() {
     });
   };
 
-  const newRound = function () {
+  const newRound = function (player1, player2) {
     getBoard();
     moves = 0;
     winner = "";
@@ -210,17 +215,15 @@ function GamePlay() {
     });
   };
 
-  const startGame = function () {
-    const letsPlay = document.querySelector(".start-game");
-
-    letsPlay.addEventListener("pointerdown", function () {
-      names.getNames();
-      homeScreen.style.display = "none";
-      playRound();
-    });
+  return {
+    squares,
+    getActivePlayer,
+    switchPlayer,
+    checkWinner,
+    playRound,
+    newRound,
+    newGame,
   };
-
-  return { squares, player1, player2, startGame, newRound, newGame };
 }
 
 function GameDisplay() {
@@ -274,9 +277,8 @@ function GameDisplay() {
   return { showMarker, showScores, showTurn, showWinner, winScreen };
 }
 
-const names = PlayerNames();
 const game = GamePlay();
 const display = GameDisplay();
 
-game.startGame();
+//game.startGame();
 game.newGame();
