@@ -40,12 +40,9 @@ const playerNames = (function () {
 
     const playerNames = new FormData(names);
     const getNames = [...playerNames.values()];
-    console.log(getNames);
 
     let player1 = Player(getNames[0], "X", 0);
-    console.log(player1);
     let player2 = Player(getNames[1], "O", 0);
-    console.log(player2);
 
     homeScreen.style.display = "none";
     game.getPlayers(player1, player2);
@@ -54,17 +51,17 @@ const playerNames = (function () {
 })();
 
 function GamePlay() {
-  const player1 = Player(names.p1Name, "X", 0);
-  const player2 = Player(names.p2Name, "O", 0);
-
   const squares = Array.from(document.querySelectorAll(".square[data-index]"));
 
-  const getPlayers = function (player1, player2) {
-    console.log(player1, player2);
-  };
+  const getPlayers = function (p1, p2) {
+    player1 = p1;
+    // console.log(player1);
+    player2 = p2;
+    // console.log(player2);
 
-  let activePlayer = player1;
-  console.log(activePlayer);
+    activePlayer = player1;
+    //console.log(activePlayer);
+  };
 
   let moves = 0;
   let winner = "";
@@ -247,6 +244,8 @@ function GameDisplay() {
   const showTurn = function (whoseTurn, name) {
     const p1Turn = document.querySelector(".p1-turn");
     const p2Turn = document.querySelector(".p2-turn");
+
+    console.log(game.player1);
 
     if (whoseTurn === game.player1) {
       p1Turn.textContent = `${name}` + "'s" + " turn!";
