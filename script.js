@@ -1,53 +1,33 @@
 const gameBoard = (function () {
-  let i = 0;
-  const gameMoves = [];
+  const board = new Array(9).fill("");
 
-  const cells = Array.from(document.getElementsByClassName("square"));
-  //console.log(squares);
+  const reset = function () {
+    board.fill("");
+  };
 
-  cells.forEach((cell) => {
-    cell.setAttribute("data-index", i++);
-    cell.textContent = "";
-    gameMoves.push(cell);
-  });
+  const update = function (i, marker) {
+    for (i = 0; i < board.length; i++) {
+      if (!board[i] || board[i].textContent !== "") {
+        return;
+      } else if (board[i] && board[i].textContent === "") {
+        board[i].textContent = marker;
+      }
+    }
+  };
 
-  return { i, cells, gameMoves };
-})();
+  const getBoard = function () {
+    // I'm not entirely sure what logic I should write to "get the board".
+    // Do I just type the "board" varibale and leave it at that? I also don't really see how this is
+    // works or what it's purpose is later in the script. Surely if I need to "getBoard" I would call
+    // the "reset" method? Why would I need to get the board unless I'm resetting it?
+    board;
+  };
 
-console.log(gameBoard.gameMoves);
-
-function getBoard() {
-  gameBoard.gameMoves = [];
-  gameBoard.i = 0;
-
-  gameBoard.cells.forEach((cell) => {
-    cell.setAttribute("data-index", gameBoard.i++);
-    cell.textContent = "";
-    gameBoard.gameMoves.push(cell);
-  });
-}
-
-function Player(name, marker, winCount) {
-  return { name, marker, winCount };
-}
-
-const playerNames = (function () {
-  const namesForm = document.querySelector(".names");
-  const homeScreen = document.querySelector(".home-container");
-
-  namesForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const playerNames = new FormData(names);
-    const getNames = [...playerNames.values()];
-
-    let player1 = Player(getNames[0], "X", 0);
-    let player2 = Player(getNames[1], "O", 0);
-
-    homeScreen.style.display = "none";
-    game.getPlayers(player1, player2);
-    game.playRound();
-  });
+  return {
+    update,
+    reset,
+    getBoard,
+  };
 })();
 
 function GamePlay() {
@@ -55,12 +35,12 @@ function GamePlay() {
 
   const getPlayers = function (p1, p2) {
     player1 = p1;
-    // console.log(player1);
+    //console.dir(player1);
     player2 = p2;
-    // console.log(player2);
+    //console.dir(player2);
 
     activePlayer = player1;
-    //console.log(activePlayer);
+    //console.trace(activePlayer);
   };
 
   let moves = 0;
@@ -71,10 +51,12 @@ function GamePlay() {
   const switchPlayer = function () {
     if (activePlayer === player1) {
       activePlayer = player2;
+      console.dir(activePlayer);
     } else {
       activePlayer = player1;
     }
     display.showTurn(activePlayer, activePlayer.name);
+    console.trace(activePlayer, activePlayer.name);
   };
 
   const checkWinner = function () {
@@ -245,7 +227,7 @@ function GameDisplay() {
     const p1Turn = document.querySelector(".p1-turn");
     const p2Turn = document.querySelector(".p2-turn");
 
-    console.log(game.player1);
+    console.trace(game.player1);
 
     if (whoseTurn === game.player1) {
       p1Turn.textContent = `${name}` + "'s" + " turn!";
