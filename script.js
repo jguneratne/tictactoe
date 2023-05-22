@@ -48,7 +48,7 @@ const playerNames = (function () {
 })();
 
 function GamePlay() {
-  const squares = Array.from(document.querySelectorAll(".square[data-index]"));
+  const squares = document.querySelectorAll(".square[data-index]");
 
   const getPlayers = function (p1, p2) {
     player1 = p1;
@@ -174,9 +174,17 @@ function GamePlay() {
           return;
         } else if (square && square.textContent === "") {
           moves++;
-          gameBoard.update(square, activePlayer.marker);
 
-          //display.showMarker(square, `${activePlayer.marker}`);
+          gameBoard.update(square, activePlayer.marker);
+          if (gameBoard.update()) {
+            gameBoard.getBoard.splice(
+              gameBoard.getBoard.indexOf(square),
+              1,
+              `${activePlayer.marker}`
+            );
+          }
+
+          display.showMarker(square, `${activePlayer.marker}`);
 
           checkTie();
           checkWinner();
@@ -214,60 +222,63 @@ function GamePlay() {
   };
 }
 
-// function GameDisplay() {
-//   const winScreen = document.querySelector(".win-screen-container");
-//   const winResult = document.querySelector(".result");
+function GameDisplay() {
+  //   const winScreen = document.querySelector(".win-screen-container");
+  //   const winResult = document.querySelector(".result");
 
-//   const showMarker = function (square, marker) {
-//     square.textContent = marker;
-//   };
+  const showMarker = function (square, marker) {
+    square.textContent = marker;
+  };
 
-//   const showScores = function (p1Tally, p2Tally, tiesTally) {
-//     const p1Score = document.querySelector(".p1-tally");
-//     const p2Score = document.querySelector(".p2-tally");
-//     const tiesScore = document.querySelector(".ties-tally");
+  //   const showScores = function (p1Tally, p2Tally, tiesTally) {
+  //     const p1Score = document.querySelector(".p1-tally");
+  //     const p2Score = document.querySelector(".p2-tally");
+  //     const tiesScore = document.querySelector(".ties-tally");
 
-//     p1Score.textContent = p1Tally;
-//     p2Score.textContent = p2Tally;
-//     tiesScore.textContent = tiesTally;
-//   };
+  //     p1Score.textContent = p1Tally;
+  //     p2Score.textContent = p2Tally;
+  //     tiesScore.textContent = tiesTally;
+  //   };
 
-//   const showTurn = function (whoseTurn, name) {
-//     const p1Turn = document.querySelector(".p1-turn");
-//     const p2Turn = document.querySelector(".p2-turn");
+  //   const showTurn = function (whoseTurn, name) {
+  //     const p1Turn = document.querySelector(".p1-turn");
+  //     const p2Turn = document.querySelector(".p2-turn");
 
-//     console.log(game.player1);
+  //     console.log(game.player1);
 
-//     if (whoseTurn === game.player1) {
-//       p1Turn.textContent = `${name}` + "'s" + " turn!";
-//       p2Turn.textContent = "";
-//     } else if (whoseTurn === game.player2) {
-//       p1Turn.textContent = "";
-//       p2Turn.textContent = `${name}` + "'s" + " turn!";
-//     }
-//   };
+  //     if (whoseTurn === game.player1) {
+  //       p1Turn.textContent = `${name}` + "'s" + " turn!";
+  //       p2Turn.textContent = "";
+  //     } else if (whoseTurn === game.player2) {
+  //       p1Turn.textContent = "";
+  //       p2Turn.textContent = `${name}` + "'s" + " turn!";
+  //     }
+  //   };
 
-//   const showWinner = function (winner, tie, result) {
-//     if (winner || tie) {
-//       winScreen.style.display = "initial";
-//       winResult.textContent = result;
-//       showNewRound();
-//     }
-//   };
+  //   const showWinner = function (winner, tie, result) {
+  //     if (winner || tie) {
+  //       winScreen.style.display = "initial";
+  //       winResult.textContent = result;
+  //       showNewRound();
+  //     }
+  //   };
 
-//   const showNewRound = function () {
-//     const letsGo = document.querySelector(".yes");
+  //   const showNewRound = function () {
+  //     const letsGo = document.querySelector(".yes");
 
-//     letsGo.addEventListener("pointerdown", function () {
-//       winScreen.style.display = "none";
-//       game.newRound();
-//     });
-//   };
+  //     letsGo.addEventListener("pointerdown", function () {
+  //       winScreen.style.display = "none";
+  //       game.newRound();
+  //     });
+  //   };
 
-//   return { showMarker, showScores, showTurn, showWinner, winScreen };
-// }
+  return {
+    showMarker,
+    // showScores, showTurn, showWinner, winScreen
+  };
+}
 
 const game = GamePlay();
-// const display = GameDisplay();
+const display = GameDisplay();
 
 // game.newGame();
