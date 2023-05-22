@@ -71,7 +71,7 @@ function GamePlay() {
     } else {
       activePlayer = player1;
     }
-    display.showTurn(activePlayer, activePlayer.name);
+    //display.showTurn(activePlayer, activePlayer.name);
   };
 
   const checkWinner = function () {
@@ -176,7 +176,7 @@ function GamePlay() {
           moves++;
           gameBoard.update(square, activePlayer.marker);
 
-          display.showMarker(square, `${activePlayer.marker}`);
+          //display.showMarker(square, `${activePlayer.marker}`);
 
           checkTie();
           checkWinner();
@@ -193,8 +193,8 @@ function GamePlay() {
     moves = 0;
     winner = "";
 
-    display.showScores(player1.winCount, player2.winCount, tieCount);
-    display.showTurn(activePlayer, activePlayer.name);
+    //display.showScores(player1.winCount, player2.winCount, tieCount);
+    // display.showTurn(activePlayer, activePlayer.name);
   };
 
   const newGame = function () {
@@ -208,7 +208,7 @@ function GamePlay() {
   return {
     //     squares,
     getPlayers,
-    //     playRound,
+    playRound,
     //     newRound,
     //     newGame,
   };
