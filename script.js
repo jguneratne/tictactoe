@@ -24,41 +24,41 @@ const gameBoard = (function () {
   };
 })();
 
-// function Player(name, marker, winCount) {
-//   return { name, marker, winCount };
-// }
+function Player(name, marker, winCount) {
+  return { name, marker, winCount };
+}
 
-// const playerNames = (function () {
-//   const namesForm = document.querySelector(".names");
-//   const homeScreen = document.querySelector(".home-container");
+const playerNames = (function () {
+  const namesForm = document.querySelector(".names");
+  const homeScreen = document.querySelector(".home-container");
 
-//   namesForm.addEventListener("submit", function (e) {
-//     e.preventDefault();
+  namesForm.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-//     const playerNames = new FormData(names);
-//     const getNames = [...playerNames.values()];
+    const playerNames = new FormData(names);
+    const getNames = [...playerNames.values()];
 
-//     let player1 = Player(getNames[0], "X", 0);
-//     let player2 = Player(getNames[1], "O", 0);
+    let player1 = Player(getNames[0], "X", 0);
+    let player2 = Player(getNames[1], "O", 0);
 
-//     homeScreen.style.display = "none";
-//     game.getPlayers(player1, player2);
-//      game.playRound();
-//   });
-// })();
+    homeScreen.style.display = "none";
+    game.getPlayers(player1, player2);
+    game.playRound();
+  });
+})();
 
 function GamePlay() {
   const squares = Array.from(document.querySelectorAll(".square[data-index]"));
 
-  // const getPlayers = function (p1, p2) {
-  //   player1 = p1;
-  //   // console.log(player1);
-  //   player2 = p2;
-  //   // console.log(player2);
+  const getPlayers = function (p1, p2) {
+    player1 = p1;
+    // console.log(player1);
+    player2 = p2;
+    // console.log(player2);
 
-  //   activePlayer = player1;
-  //   //console.log(activePlayer);
-  // };
+    activePlayer = player1;
+    //console.log(activePlayer);
+  };
 
   let moves = 0;
   let winner = "";
@@ -174,7 +174,6 @@ function GamePlay() {
           return;
         } else if (square && square.textContent === "") {
           moves++;
-          //console.log(moves);
           gameBoard.update(square, activePlayer.marker);
 
           display.showMarker(square, `${activePlayer.marker}`);
@@ -189,22 +188,22 @@ function GamePlay() {
     });
   };
 
-  //   const newRound = function () {
-  //     getBoard();
-  //     moves = 0;
-  //     winner = "";
+  const newRound = function () {
+    gameBoard.getBoard();
+    moves = 0;
+    winner = "";
 
-  //     display.showScores(player1.winCount, player2.winCount, tieCount);
-  //     display.showTurn(activePlayer, activePlayer.name);
-  //   };
+    display.showScores(player1.winCount, player2.winCount, tieCount);
+    display.showTurn(activePlayer, activePlayer.name);
+  };
 
-  //   const newGame = function () {
-  //     const noThanks = document.querySelector(".no");
+  const newGame = function () {
+    const noThanks = document.querySelector(".no");
 
-  //     noThanks.addEventListener("pointerdown", function () {
-  //       location.reload();
-  //     });
-  //   };
+    noThanks.addEventListener("pointerdown", function () {
+      location.reload();
+    });
+  };
 
   return {
     //     squares,
