@@ -23,7 +23,7 @@ header {
 /* Game Area */
 
 .home-container {
-  display: none;
+  /* display: none; */
 
   position: absolute;
 
