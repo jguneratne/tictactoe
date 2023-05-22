@@ -23,6 +23,8 @@ header {
 /* Game Area */
 
 .home-container {
+  display: none;
+
   position: absolute;
 
   left: 0;
@@ -59,7 +61,7 @@ header {
   padding-bottom: 3ch;
 }
 
-button.start-game {
+input.start-game {
   width: 20ch;
   height: 5ch;
 }
