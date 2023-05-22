@@ -82,51 +82,51 @@ function GamePlay() {
     ];
 
     let row1 = Array.from([
-      gameBoard.board[0],
-      gameBoard.board[1],
-      gameBoard.board[2],
+      gameBoard.getBoard[0],
+      gameBoard.getBoard[1],
+      gameBoard.getBoard[2],
     ]);
 
     let row2 = Array.from([
-      gameBoard.board[3],
-      gameBoard.board[4],
-      gameBoard.board[5],
+      gameBoard.getBoard[3],
+      gameBoard.getBoard[4],
+      gameBoard.getBoard[5],
     ]);
 
     let row3 = Array.from([
-      gameBoard.board[6],
-      gameBoard.board[7],
-      gameBoard.board[8],
+      gameBoard.getBoard[6],
+      gameBoard.getBoard[7],
+      gameBoard.getBoard[8],
     ]);
 
     let col1 = Array.from([
-      gameBoard.board[0],
-      gameBoard.board[3],
-      gameBoard.board[6],
+      gameBoard.getBoard[0],
+      gameBoard.getBoard[3],
+      gameBoard.getBoard[6],
     ]);
 
     let col2 = Array.from([
-      gameBoard.board[1],
-      gameBoard.board[4],
-      gameBoard.board[7],
+      gameBoard.getBoard[1],
+      gameBoard.getBoard[4],
+      gameBoard.getBoard[7],
     ]);
 
     let col3 = Array.from([
-      gameBoard.board[2],
-      gameBoard.board[5],
-      gameBoard.board[8],
+      gameBoard.getBoard[2],
+      gameBoard.getBoard[5],
+      gameBoard.getBoard[8],
     ]);
 
     let diag1 = Array.from([
-      gameBoard.board[0],
-      gameBoard.board[4],
-      gameBoard.board[8],
+      gameBoard.getBoard[0],
+      gameBoard.getBoard[4],
+      gameBoard.getBoard[8],
     ]);
 
     let diag2 = Array.from([
-      gameBoard.board[2],
-      gameBoard.board[4],
-      gameBoard.board[6],
+      gameBoard.getBoard[2],
+      gameBoard.getBoard[4],
+      gameBoard.getBoard[6],
     ]);
 
     const compareMoves = (wins, marks) =>
