@@ -26,31 +26,61 @@ const gameBoard = (function () {
   };
 })();
 
-// function Player(name, marker, winCount) {
-//   return { name, marker, winCount };
-// }
+function Player(name, marker, winCount) {
+  return { name, marker, winCount };
+}
 
-// const playerNames = (function () {
-//   const namesForm = document.querySelector(".names");
-//   const homeScreen = document.querySelector(".home-container");
+const playerNames = (function () {
+  const namesForm = document.querySelector(".names");
 
-//   namesForm.addEventListener("submit", function (e) {
-//     e.preventDefault();
+  namesForm.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-//     const playerNames = new FormData(names);
-//     const getNames = [...playerNames.values()];
+    const playerNames = new FormData(names);
+    const getNames = [...playerNames.values()];
 
-//     let player1 = Player(getNames[0], "X", 0);
-//     let player2 = Player(getNames[1], "O", 0);
+    let player1 = Player(getNames[0], "X", 0);
+    let player2 = Player(getNames[1], "O", 0);
 
-//     homeScreen.style.display = "none";
-//     game.getPlayers(player1, player2);
-//     game.playRound();
-//   });
-// })();
+    GamePlay.startGame(player1, player2);
+  });
+})();
+
+const GamePlay = (function () {
+  let isPlaying = false;
+  let player1;
+  let player2;
+  let activePlayer;
+  let moves = 0;
+  let winner = "";
+  let tieCount = 0;
+  let result = "";
+
+  const startGame = function (p1, p2) {
+    const homeScreen = document.querySelector(".home-container");
+    homeScreen.style.display = "none";
+    isPlaying = true;
+    player1 = p1;
+    console.log(player1);
+    player2 = p2;
+    console.log(player2);
+
+    activePlayer = player1;
+  };
+
+  const placeMarker = function (clickedCell) {};
+
+  return { startGame };
+})();
 
 // function GamePlay() {
+//   // const squares = Array.from(
+//   //   document.querySelectorAll(".square[data-index]")
+//   // ).fill("");
+
 //   const squares = Array.from(document.querySelectorAll(".square[data-index]"));
+
+//   console.log(squares);
 
 //   const getPlayers = function (p1, p2) {
 //     player1 = p1;
@@ -174,18 +204,11 @@ const gameBoard = (function () {
 //       square.addEventListener("pointerdown", function (e) {
 //         if (!square || square.textContent !== "" || winner) {
 //           return;
-//         } else if (square && square.textContent === "") {
+//         } else {
 //           moves++;
 
-//           gameBoard.update(square, activePlayer.marker);
-//           console.log(gameBoard.update());
-//           // if (gameBoard.update()) {
-//           //   gameBoard.getBoard.splice(
-//           //     gameBoard.getBoard.indexOf(square),
-//           //     1,
-//           //     `${activePlayer.marker}`
-//           //   );
-//           // }
+//           gameBoard.update(square, `${activePlayer.marker}`);
+//           console.log(gameBoard.getBoard());
 
 //           display.showMarker(square, `${activePlayer.marker}`);
 
@@ -217,7 +240,7 @@ const gameBoard = (function () {
 //   };
 
 //   return {
-//     //     squares,
+//     // squares,
 //     getPlayers,
 //     playRound,
 //     //     newRound,
