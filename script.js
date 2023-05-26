@@ -68,6 +68,107 @@ const GamePlay = (function () {
     activePlayer = player1;
   };
 
+  const switchPlayer = function () {
+    if (activePlayer === player1) {
+      activePlayer = player2;
+    } else {
+      activePlayer = player1;
+    }
+    //display.showTurn(activePlayer, activePlayer.name);
+  };
+
+  const checkWinner = function () {
+    const winArray = [
+      `${activePlayer.marker}`,
+      `${activePlayer.marker}`,
+      `${activePlayer.marker}`,
+    ];
+
+    let row1 = Array.from([
+      gameBoard.getBoard[0],
+      gameBoard.getBoard[1],
+      gameBoard.getBoard[2],
+    ]);
+
+    let row2 = Array.from([
+      gameBoard.getBoard[3],
+      gameBoard.getBoard[4],
+      gameBoard.getBoard[5],
+    ]);
+
+    let row3 = Array.from([
+      gameBoard.getBoard[6],
+      gameBoard.getBoard[7],
+      gameBoard.getBoard[8],
+    ]);
+
+    let col1 = Array.from([
+      gameBoard.getBoard[0],
+      gameBoard.getBoard[3],
+      gameBoard.getBoard[6],
+    ]);
+
+    let col2 = Array.from([
+      gameBoard.getBoard[1],
+      gameBoard.getBoard[4],
+      gameBoard.getBoard[7],
+    ]);
+
+    let col3 = Array.from([
+      gameBoard.getBoard[2],
+      gameBoard.getBoard[5],
+      gameBoard.getBoard[8],
+    ]);
+
+    let diag1 = Array.from([
+      gameBoard.getBoard[0],
+      gameBoard.getBoard[4],
+      gameBoard.getBoard[8],
+    ]);
+
+    let diag2 = Array.from([
+      gameBoard.getBoard[2],
+      gameBoard.getBoard[4],
+      gameBoard.getBoard[6],
+    ]);
+
+    const compareMoves = (wins, marks) =>
+      wins.length === marks.length &&
+      wins.every((element, index) => element === marks[index]);
+
+    if (
+      compareMoves(winArray, row1) === true ||
+      compareMoves(winArray, row2) === true ||
+      compareMoves(winArray, row3) === true ||
+      compareMoves(winArray, col1) === true ||
+      compareMoves(winArray, col2) === true ||
+      compareMoves(winArray, col3) === true ||
+      compareMoves(winArray, diag1) === true ||
+      compareMoves(winArray, diag2) === true
+    ) {
+      winner = activePlayer;
+      console.log(`${activePlayer.name}` + " is the winner!");
+
+      if (winner === player1) {
+        player1.winCount++;
+        result = player1.name + " wins!";
+        setTimeout(display.showWinner, 200, winner, tieCount, result);
+      } else if (winner === player2) {
+        player2.winCount++;
+        result = player2.name + " wins!";
+        setTimeout(display.showWinner, 200, winner, tieCount, result);
+      }
+    }
+  };
+
+  const checkTie = function () {
+    if (moves === 9 && !winner) {
+      tieCount++;
+      result = "It's a tie!";
+      setTimeout(display.showWinner, 200, winner, tieCount, result);
+    }
+  };
+
   const placeMarker = function (clickedCell) {};
 
   return { startGame };
