@@ -30,7 +30,11 @@ function Player(name, marker, winCount) {
   return { name, marker, winCount };
 }
 
-const playerNames = (function () {
+const GameDisplay = (function () {
+  // Start Handler to begin game
+  let startHandler = null;
+
+  const homeScreen = document.querySelector(".home-container");
   const namesForm = document.querySelector(".names");
 
   namesForm.addEventListener("submit", function (e) {
@@ -43,12 +47,20 @@ const playerNames = (function () {
     let secondPlayer = Player(getNames[1], "O", 0);
 
     GamePlay.startGame(firstPlayer, secondPlayer);
-  });
-})();
 
-const GameDisplay = (function () {
+    homeScreen.style.display = "none";
+  });
+
+  const addStartHandler = function (startHandlerFunction) {
+    if (typeof startHandlerFunction === "function") {
+      startHandler = startHandlerFunction;
+    } else {
+      throw new Error("Click Handler must be a function!");
+    }
+  };
+
+  // Click Handler to place markers on board
   let clickHandler = null;
-  let startHandler = null;
   const gameContainer = document.querySelector(".game-box");
   const squares = gameContainer.querySelectorAll(".square");
   squares.forEach((square) => {
@@ -63,14 +75,6 @@ const GameDisplay = (function () {
     });
   });
 
-  // const addStartHandler = function (startHandlerFunction) {
-  //   if (typeof startHandlerFunction === "function") {
-  //     startHandler = startHandlerFunction;
-  //   } else {
-  //     throw new Error("Click Handler must be a function!");
-  //   }
-  // };
-
   const addClickHandler = function (clickHandlerFunction) {
     if (typeof clickHandlerFunction === "function") {
       clickHandler = clickHandlerFunction;
@@ -79,7 +83,7 @@ const GameDisplay = (function () {
     }
   };
 
-  return { addClickHandler };
+  return { addStartHandler, addClickHandler };
 })();
 
 const GamePlay = (function () {
@@ -100,10 +104,7 @@ const GamePlay = (function () {
     //console.log(player2);
 
     activePlayer = player1;
-    console.log(activePlayer.marker);
-
-    const homeScreen = document.querySelector(".home-container");
-    homeScreen.style.display = "none";
+    //console.log(activePlayer.marker);
   };
 
   const switchPlayer = function () {
@@ -221,7 +222,7 @@ const GamePlay = (function () {
     }
   };
 
-  // GameDisplay.addStartHandler(startGame);
+  GameDisplay.addStartHandler(startGame);
   GameDisplay.addClickHandler(placeMarker);
 
   return { startGame, placeMarker };
