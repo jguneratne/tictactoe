@@ -39,8 +39,8 @@ const playerNames = (function () {
     const playerNames = new FormData(names);
     const getNames = [...playerNames.values()];
 
-    let player1 = Player(getNames[0], "X", 0);
-    let player2 = Player(getNames[1], "O", 0);
+    let firstPlayer = Player(getNames[0], "X", 0);
+    let secondPlayer = Player(getNames[1], "O", 0);
 
     GamePlay.startGame(player1, player2);
   });
@@ -61,11 +61,12 @@ const GamePlay = (function () {
     homeScreen.style.display = "none";
     isPlaying = true;
     player1 = p1;
-    console.log(player1);
+    //console.log(player1);
     player2 = p2;
-    console.log(player2);
+    //console.log(player2);
 
     activePlayer = player1;
+    // console.log(activePlayer);
   };
 
   const switchPlayer = function () {
@@ -169,9 +170,17 @@ const GamePlay = (function () {
     }
   };
 
-  const placeMarker = function (clickedCell) {};
+  const placeMarker = function (clickedCell, marker) {
+    gameBoard.update(clickedCell, marker);
+    moves++;
+    checkTie();
+    checkWinner();
+    if (!winner) {
+      switchPlayer();
+    }
+  };
 
-  return { startGame };
+  return { startGame, placeMarker };
 })();
 
 // function GamePlay() {
