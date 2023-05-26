@@ -46,6 +46,41 @@ const playerNames = (function () {
   });
 })();
 
+const GameDisplay = (function () {
+  let clickHandler = null;
+  //let startHandler = null;
+  const gameContainer = document.querySelector(".game-box");
+  const squares = gameContainer.querySelectorAll(".square");
+  squares.forEach((square) => {
+    square.addEventListener("pointerdown", function (e) {
+      let cellIndex = square.dataset.index;
+
+      if (clickHandler) {
+        clickHandler(cellIndex);
+      }
+      console.log(`Cell ${cellIndex} clicked`);
+    });
+  });
+
+  // const addStartHandler = function (startHandlerFunction) {
+  //   if (typeof startHandlerFunction === "function") {
+  //     startHandler = startHandlerFunction;
+  //   } else {
+  //     throw new Error("Click Handler must be a function!");
+  //   }
+  // };
+
+  const addClickHandler = function (clickHandlerFunction) {
+    if (typeof clickHandlerFunction === "function") {
+      clickHandler = clickHandlerFunction;
+    } else {
+      throw new Error("Click Handler must be a function!");
+    }
+  };
+
+  return { addClickHandler };
+})();
+
 const GamePlay = (function () {
   let isPlaying = false;
   let player1;
@@ -57,8 +92,6 @@ const GamePlay = (function () {
   let result = "";
 
   const startGame = function (p1, p2) {
-    const homeScreen = document.querySelector(".home-container");
-    homeScreen.style.display = "none";
     isPlaying = true;
     player1 = p1;
     //console.log(player1);
@@ -66,7 +99,10 @@ const GamePlay = (function () {
     //console.log(player2);
 
     activePlayer = player1;
-    // console.log(activePlayer);
+    console.log(activePlayer.marker);
+
+    const homeScreen = document.querySelector(".home-container");
+    homeScreen.style.display = "none";
   };
 
   const switchPlayer = function () {
@@ -170,8 +206,9 @@ const GamePlay = (function () {
     }
   };
 
-  const placeMarker = function (clickedCell, marker) {
-    gameBoard.update(clickedCell, marker);
+  const placeMarker = function (clickedCell) {
+    gameBoard.update(clickedCell, `${activePlayer.marker}`);
+    console.log(gameBoard.getBoard());
     moves++;
     checkTie();
     checkWinner();
@@ -182,6 +219,9 @@ const GamePlay = (function () {
       gameBoard.reset();
     }
   };
+
+  // GameDisplay.addStartHandler(startGame);
+  GameDisplay.addClickHandler(placeMarker);
 
   return { startGame, placeMarker };
 })();
