@@ -42,7 +42,7 @@ const playerNames = (function () {
     let firstPlayer = Player(getNames[0], "X", 0);
     let secondPlayer = Player(getNames[1], "O", 0);
 
-    GamePlay.startGame(player1, player2);
+    GamePlay.startGame(firstPlayer, secondPlayer);
   });
 })();
 
@@ -177,6 +177,9 @@ const GamePlay = (function () {
     checkWinner();
     if (!winner) {
       switchPlayer();
+    } else if (winner || moves === 9) {
+      isPlaying = false;
+      gameBoard.reset();
     }
   };
 
