@@ -48,7 +48,7 @@ const playerNames = (function () {
 
 const GameDisplay = (function () {
   let clickHandler = null;
-  //let startHandler = null;
+  let startHandler = null;
   const gameContainer = document.querySelector(".game-box");
   const squares = gameContainer.querySelectorAll(".square");
   squares.forEach((square) => {
@@ -57,6 +57,7 @@ const GameDisplay = (function () {
 
       if (clickHandler) {
         clickHandler(cellIndex);
+        square.textContent = gameBoard.getBoard().at(cellIndex);
       }
       console.log(`Cell ${cellIndex} clicked`);
     });
