@@ -36,6 +36,8 @@ const GameDisplay = (function () {
 
   const homeScreen = document.querySelector(".home-container");
   const namesForm = document.querySelector(".names");
+  const p1Turn = document.querySelector(".p1-turn");
+  const p2Turn = document.querySelector(".p2-turn");
 
   namesForm.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -49,6 +51,7 @@ const GameDisplay = (function () {
     GamePlay.startGame(firstPlayer, secondPlayer);
 
     homeScreen.style.display = "none";
+    p1Turn.textContent = `${firstPlayer.name}` + "'s" + " turn!";
   });
 
   const addStartHandler = function (startHandlerFunction) {
@@ -72,6 +75,14 @@ const GameDisplay = (function () {
         square.textContent = gameBoard.getBoard().at(cellIndex);
       }
       console.log(`Cell ${cellIndex} clicked`);
+
+      // if (p1Turn.textContent) {
+      //   p1Turn.textContent = `${firstPlayer.name}` + "'s" + " turn!";
+      //   p2Turn.textContent = "";
+      // } else if (p2Turn.textContent) {
+      //   p1Turn.textContent = "";
+      //   p2Turn.textContent = `${secondPlayer.name}` + "'s" + " turn!";
+      // }
     });
   });
 
@@ -83,7 +94,33 @@ const GameDisplay = (function () {
     }
   };
 
-  return { addStartHandler, addClickHandler };
+  const switchPlayer = function (currentPlayer) {};
+
+  // Show Turn Handler to display whose turn in DOM
+  // let showTurnHandler = null;
+
+  // const addShowTurnHandler = function (showTurnHandlerFunction) {
+  //   if (typeof showTurnHandlerFunction === "function") {
+  //     showTurnHandler = showTurnHandlerFunction;
+  //   } else {
+  //     throw new Error("Click Handler must be a function!");
+  //   }
+  // };
+
+  // if (p1Turn.textContent) {
+  //   p1Turn.textContent = `${firstPlayer.name}` + "'s" + " turn!";
+  //   p2Turn.textContent = "";
+  // } else if (p2Turn.textContent) {
+  //   p1Turn.textContent = "";
+  //   p2Turn.textContent = `${secondPlayer.name}` + "'s" + " turn!";
+  // }
+
+  // Win Screen Handler to show winner at end
+  let winScreenHandler = null;
+
+  const addWinScreenHandler = function (winScreenFunction) {};
+
+  return { addStartHandler, addClickHandler, switchPlayer };
 })();
 
 const GamePlay = (function () {
@@ -99,21 +136,9 @@ const GamePlay = (function () {
   const startGame = function (p1, p2) {
     isPlaying = true;
     player1 = p1;
-    //console.log(player1);
     player2 = p2;
-    //console.log(player2);
 
     activePlayer = player1;
-    //console.log(activePlayer.marker);
-  };
-
-  const switchPlayer = function () {
-    if (activePlayer === player1) {
-      activePlayer = player2;
-    } else {
-      activePlayer = player1;
-    }
-    //display.showTurn(activePlayer, activePlayer.name);
   };
 
   const checkWinner = function () {
@@ -212,17 +237,26 @@ const GamePlay = (function () {
     gameBoard.update(clickedCell, `${activePlayer.marker}`);
     console.log(gameBoard.getBoard());
     moves++;
-    console.log(moves);
+    //console.log(moves);
 
     checkTie();
     checkWinner();
     if (!winner) {
-      switchPlayer();
+      if (activePlayer === player1) {
+        activePlayer = player2;
+      } else {
+        activePlayer = player1;
+      }
+      let currentPlayer = activePlayer;
+      GameDisplay.switchPlayer(currentPlayer);
+    } else if (winner || moves === 9) {
+      isPlaying = false;
     }
   };
 
   GameDisplay.addStartHandler(startGame);
   GameDisplay.addClickHandler(placeMarker);
+  // GameDisplay.addShowTurnHandler(switchPlayer);
 
   return { startGame, placeMarker };
 })();
