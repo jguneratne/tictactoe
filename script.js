@@ -75,14 +75,6 @@ const GameDisplay = (function () {
         square.textContent = gameBoard.getBoard().at(cellIndex);
       }
       console.log(`Cell ${cellIndex} clicked`);
-
-      // if (p1Turn.textContent) {
-      //   p1Turn.textContent = `${firstPlayer.name}` + "'s" + " turn!";
-      //   p2Turn.textContent = "";
-      // } else if (p2Turn.textContent) {
-      //   p1Turn.textContent = "";
-      //   p2Turn.textContent = `${secondPlayer.name}` + "'s" + " turn!";
-      // }
     });
   });
 
@@ -94,26 +86,18 @@ const GameDisplay = (function () {
     }
   };
 
-  const switchPlayer = function (currentPlayer) {};
+  // Show Player's Turn in DOM
+  const switchPlayer = function (currentPlayer) {
+    whoseTurn = currentPlayer;
 
-  // Show Turn Handler to display whose turn in DOM
-  // let showTurnHandler = null;
-
-  // const addShowTurnHandler = function (showTurnHandlerFunction) {
-  //   if (typeof showTurnHandlerFunction === "function") {
-  //     showTurnHandler = showTurnHandlerFunction;
-  //   } else {
-  //     throw new Error("Click Handler must be a function!");
-  //   }
-  // };
-
-  // if (p1Turn.textContent) {
-  //   p1Turn.textContent = `${firstPlayer.name}` + "'s" + " turn!";
-  //   p2Turn.textContent = "";
-  // } else if (p2Turn.textContent) {
-  //   p1Turn.textContent = "";
-  //   p2Turn.textContent = `${secondPlayer.name}` + "'s" + " turn!";
-  // }
+    if (whoseTurn.marker === "X") {
+      p1Turn.textContent = `${whoseTurn.name}` + "'s" + " turn!";
+      p2Turn.textContent = "";
+    } else if (whoseTurn.marker === "O") {
+      p1Turn.textContent = "";
+      p2Turn.textContent = `${whoseTurn.name}` + "'s" + " turn!";
+    }
+  };
 
   // Win Screen Handler to show winner at end
   let winScreenHandler = null;
