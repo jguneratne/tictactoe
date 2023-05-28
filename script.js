@@ -31,15 +31,15 @@ function Player(name, marker, winCount) {
 }
 
 const GameDisplay = (function () {
-  // Start Handler to begin game
-  let startHandler = null;
-
   const homeScreen = document.querySelector(".home-container");
   const namesForm = document.querySelector(".names");
   const p1Turn = document.querySelector(".p1-turn");
   const p2Turn = document.querySelector(".p2-turn");
   const winScreen = document.querySelector(".win-screen-container");
   const winResult = document.querySelector(".result");
+
+  // Start Handler to begin game
+  let startHandler = null;
 
   namesForm.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -110,6 +110,8 @@ const GameDisplay = (function () {
       winResult.textContent = result;
     }
   };
+
+  // New Round Handler if playing again
 
   return { addStartHandler, addClickHandler, switchPlayer, showWinScreen };
 })();
