@@ -37,6 +37,7 @@ const GameDisplay = (function () {
   const p2Turn = document.querySelector(".p2-turn");
   const winScreen = document.querySelector(".win-screen-container");
   const winResult = document.querySelector(".result");
+  const letsGo = document.querySelector(".yes");
 
   // Start Handler to begin game
   let startHandler = null;
@@ -111,9 +112,43 @@ const GameDisplay = (function () {
     }
   };
 
-  // New Round Handler if playing again
+  const showScores = function (p1Tally, p2Tally, tiesTally) {
+    const p1Score = document.querySelector(".p1-tally");
+    const p2Score = document.querySelector(".p2-tally");
+    const tiesScore = document.querySelector(".ties-tally");
 
-  return { addStartHandler, addClickHandler, switchPlayer, showWinScreen };
+    p1Score.textContent = p1Tally;
+    p2Score.textContent = p2Tally;
+    tiesScore.textContent = tiesTally;
+  };
+
+  // New Round Handler if playing again
+  let newRound = null;
+
+  letsGo.addEventListener("pointerdown", function () {
+    winScreen.style.display = "none";
+    GamePlay.newRound();
+    console.log(gameBoard.getBoard());
+    showScores();
+    clickHandler();
+  });
+
+  const newRoundHandler = function (newRoundHandlerFunction) {
+    if (typeof newRoundHandlerFunction === "function") {
+      newRound = newRoundHandlerFunction;
+    } else {
+      throw new Error("Click Handler must be a function!");
+    }
+  };
+
+  return {
+    addStartHandler,
+    addClickHandler,
+    switchPlayer,
+    showWinScreen,
+    newRoundHandler,
+    showScores,
+  };
 })();
 
 const GamePlay = (function () {
@@ -247,9 +282,17 @@ const GamePlay = (function () {
     }
   };
 
+  const newRound = function () {
+    gameBoard.reset();
+    moves = 0;
+    winner = "";
+
+    GameDisplay.showScores(player1.winCount, player2.winCount, tieCount);
+  };
+
   GameDisplay.addStartHandler(startGame);
   GameDisplay.addClickHandler(placeMarker);
-  // GameDisplay.addShowTurnHandler(switchPlayer);
+  GameDisplay.newRoundHandler(newRound);
 
-  return { startGame, placeMarker };
+  return { startGame, placeMarker, newRound };
 })();
