@@ -38,6 +38,8 @@ const GameDisplay = (function () {
   const namesForm = document.querySelector(".names");
   const p1Turn = document.querySelector(".p1-turn");
   const p2Turn = document.querySelector(".p2-turn");
+  const winScreen = document.querySelector(".win-screen-container");
+  const winResult = document.querySelector(".result");
 
   namesForm.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -100,11 +102,16 @@ const GameDisplay = (function () {
   };
 
   // Win Screen Handler to show winner at end
-  let winScreenHandler = null;
+  const showWinScreen = function (winner, tie, result) {
+    console.log(winner, result);
 
-  const addWinScreenHandler = function (winScreenFunction) {};
+    if (winner || tie) {
+      winScreen.style.display = "initial";
+      winResult.textContent = result;
+    }
+  };
 
-  return { addStartHandler, addClickHandler, switchPlayer };
+  return { addStartHandler, addClickHandler, switchPlayer, showWinScreen };
 })();
 
 const GamePlay = (function () {
@@ -200,11 +207,11 @@ const GamePlay = (function () {
       if (winner === player1) {
         player1.winCount++;
         result = player1.name + " wins!";
-        setTimeout(display.showWinner, 200, winner, tieCount, result);
+        setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
       } else if (winner === player2) {
         player2.winCount++;
         result = player2.name + " wins!";
-        setTimeout(display.showWinner, 200, winner, tieCount, result);
+        setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
       }
     }
   };
@@ -213,7 +220,7 @@ const GamePlay = (function () {
     if (moves === 9 && !winner) {
       tieCount++;
       result = "It's a tie!";
-      setTimeout(display.showWinner, 200, winner, tieCount, result);
+      setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
     }
   };
 
