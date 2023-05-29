@@ -68,11 +68,14 @@ const GameDisplay = (function () {
   let clickHandler = null;
   const gameContainer = document.querySelector(".game-box");
   const squares = gameContainer.querySelectorAll(".square");
+
   squares.forEach((square) => {
     square.addEventListener("pointerdown", function (e) {
       let cellIndex = square.dataset.index;
 
-      if (clickHandler) {
+      if (!clickHandler || square.textContent !== "") {
+        return;
+      } else if (clickHandler) {
         clickHandler(cellIndex);
         square.textContent = gameBoard.getBoard().at(cellIndex);
       }
