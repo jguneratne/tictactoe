@@ -129,8 +129,11 @@ const GameDisplay = (function () {
     winScreen.style.display = "none";
     GamePlay.newRound();
     console.log(gameBoard.getBoard());
-    showScores();
-    clickHandler();
+
+    squares.forEach((square) => {
+      let clearCell = square.dataset.index;
+      square.textContent = gameBoard.getBoard().at(clearCell);
+    });
   });
 
   const newRoundHandler = function (newRoundHandlerFunction) {
