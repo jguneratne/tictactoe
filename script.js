@@ -144,13 +144,22 @@ const GameDisplay = (function () {
     }
   };
 
+  // Reset Game if not playing again
+  let resetGame = null;
+
+  const noThanks = document.querySelector(".no");
+
+  noThanks.addEventListener("pointerdown", function () {
+    location.reload();
+  });
+
   return {
     addStartHandler,
     addClickHandler,
     switchPlayer,
     showWinScreen,
-    newRoundHandler,
     showScores,
+    newRoundHandler,
   };
 })();
 
