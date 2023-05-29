@@ -37,7 +37,6 @@ const GameDisplay = (function () {
   const p2Turn = document.querySelector(".p2-turn");
   const winScreen = document.querySelector(".win-screen-container");
   const winResult = document.querySelector(".result");
-  const letsGo = document.querySelector(".yes");
 
   // Start Handler to begin game
   let startHandler = null;
@@ -124,6 +123,7 @@ const GameDisplay = (function () {
 
   // New Round Handler if playing again
   let newRound = null;
+  const letsGo = document.querySelector(".yes");
 
   letsGo.addEventListener("pointerdown", function () {
     winScreen.style.display = "none";
@@ -146,7 +146,6 @@ const GameDisplay = (function () {
 
   // Reset Game if not playing again
   let resetGame = null;
-
   const noThanks = document.querySelector(".no");
 
   noThanks.addEventListener("pointerdown", function () {
