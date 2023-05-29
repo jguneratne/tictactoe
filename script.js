@@ -273,23 +273,27 @@ const GamePlay = (function () {
   };
 
   const placeMarker = function (clickedCell) {
-    gameBoard.update(clickedCell, `${activePlayer.marker}`);
-    console.log(gameBoard.getBoard());
-    moves++;
-    //console.log(moves);
+    if (winner || moves === 9) {
+      return;
+    } else {
+      gameBoard.update(clickedCell, `${activePlayer.marker}`);
+      console.log(gameBoard.getBoard());
+      moves++;
+      //console.log(moves);
 
-    checkTie();
-    checkWinner();
-    if (!winner) {
-      if (activePlayer === player1) {
-        activePlayer = player2;
-      } else {
-        activePlayer = player1;
+      checkTie();
+      checkWinner();
+      if (!winner) {
+        if (activePlayer === player1) {
+          activePlayer = player2;
+        } else {
+          activePlayer = player1;
+        }
+        let currentPlayer = activePlayer;
+        GameDisplay.switchPlayer(currentPlayer);
+      } else if (winner || moves === 9) {
+        isPlaying = false;
       }
-      let currentPlayer = activePlayer;
-      GameDisplay.switchPlayer(currentPlayer);
-    } else if (winner || moves === 9) {
-      isPlaying = false;
     }
   };
 
