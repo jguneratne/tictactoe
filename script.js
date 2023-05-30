@@ -276,7 +276,7 @@ const GamePlay = (function () {
   };
 
   const placeMarker = function (clickedCell) {
-    if (winner || moves === 9) {
+    if (isPlaying === false) {
       return;
     } else {
       gameBoard.update(clickedCell, `${activePlayer.marker}`);
