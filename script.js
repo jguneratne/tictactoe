@@ -304,6 +304,7 @@ const GamePlay = (function () {
     gameBoard.reset();
     moves = 0;
     winner = "";
+    isPlaying = true;
 
     GameDisplay.showScores(player1.winCount, player2.winCount, tieCount);
   };
