@@ -232,8 +232,10 @@ const GamePlay = (function () {
 
   const startGame = function (p1Name, p2Name) {
     isPlaying = true;
-    player1 = Player(p1Name);
-    player2 = Player(p2Name);
+    player1 = Player(p1Name, "X", 0);
+    console.log(player1);
+    player2 = Player(p2Name, "O", 0);
+    console.log(player2);
 
     activePlayer = player1;
 
