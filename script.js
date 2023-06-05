@@ -20,6 +20,8 @@ const gameBoard = (function () {
   };
 
   const checkWinner = function () {
+    let winner = false;
+
     if (
       getBoard()[0] !== "" &&
       getBoard()[0] === getBoard()[1] &&
@@ -27,6 +29,7 @@ const gameBoard = (function () {
     ) {
       // win logic
       console.log("We have a winner!");
+      winner = true;
     }
 
     if (
@@ -36,6 +39,7 @@ const gameBoard = (function () {
     ) {
       // win logic
       console.log("We have a winner!");
+      winner = true;
     }
 
     if (
@@ -45,6 +49,7 @@ const gameBoard = (function () {
     ) {
       // win logic
       console.log("We have a winner!");
+      winner = true;
     }
 
     if (
@@ -54,6 +59,7 @@ const gameBoard = (function () {
     ) {
       // win logic
       console.log("We have a winner!");
+      winner = true;
     }
 
     if (
@@ -63,6 +69,7 @@ const gameBoard = (function () {
     ) {
       // win logic
       console.log("We have a winner!");
+      winner = true;
     }
 
     if (
@@ -72,6 +79,7 @@ const gameBoard = (function () {
     ) {
       // win logic
       console.log("We have a winner!");
+      winner = true;
     }
 
     if (
@@ -81,6 +89,7 @@ const gameBoard = (function () {
     ) {
       // win logic
       console.log("We have a winner!");
+      winner = true;
     }
 
     if (
@@ -90,7 +99,10 @@ const gameBoard = (function () {
     ) {
       // win logic
       console.log("We have a winner!");
+      winner = true;
     }
+
+    checkTie(winner);
 
     //   winner = activePlayer;
     //   checkTie(winner);
@@ -290,7 +302,6 @@ const GamePlay = (function () {
       return;
     } else {
       gameBoard.update(clickedCell, `${activePlayer.marker}`);
-      gameBoard.checkWinner(`${activePlayer.marker}`, player1, player2);
       console.log(gameBoard.getBoard());
       moves++;
       gameBoard.checkTie(moves);
