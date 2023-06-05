@@ -19,8 +19,11 @@ const gameBoard = (function () {
     return Array.from(board);
   };
 
-  const checkWinner = function (activePlayer) {
+  const checkWinner = function (activePlayer, player1, player2) {
     console.log(activePlayer);
+    // console.log(player1);
+    // console.log(player2);
+
     const winArray = [
       `${activePlayer.marker}`,
       `${activePlayer.marker}`,
@@ -28,19 +31,14 @@ const gameBoard = (function () {
     ];
 
     let row1 = Array.from([getBoard()[0], getBoard()[1], getBoard()[2]]);
-
     let row2 = Array.from([getBoard()[3], getBoard()[4], getBoard()[5]]);
-
     let row3 = Array.from([getBoard()[6], getBoard()[7], getBoard()[8]]);
 
     let col1 = Array.from([getBoard()[0], getBoard()[3], getBoard()[6]]);
-
     let col2 = Array.from([getBoard()[1], getBoard()[4], getBoard()[7]]);
-
     let col3 = Array.from([getBoard()[2], getBoard()[5], getBoard()[8]]);
 
     let diag1 = Array.from([getBoard()[0], getBoard()[4], getBoard()[8]]);
-
     let diag2 = Array.from([getBoard()[2], getBoard()[4], getBoard()[6]]);
 
     const compareMoves = (wins, marks) =>
@@ -58,6 +56,7 @@ const gameBoard = (function () {
       compareMoves(winArray, diag2) === true
     ) {
       winner = activePlayer;
+      checkTie(winner);
       console.log(`${activePlayer.name}` + " is the winner!");
 
       if (winner === player1) {
@@ -72,7 +71,7 @@ const gameBoard = (function () {
     }
   };
 
-  const checkTie = function (moves) {
+  const checkTie = function (moves, winner) {
     if (moves === 9 && !winner) {
       tieCount++;
       result = "It's a tie!";
@@ -238,14 +237,14 @@ const GamePlay = (function () {
   const startGame = function (p1Name, p2Name) {
     isPlaying = true;
     player1 = Player(p1Name, "X", 0);
-    //console.log(player1);
+    // console.log(player1);
     player2 = Player(p2Name, "O", 0);
     // console.log(player2);
 
     activePlayer = player1;
 
     GameDisplay.showCurrentPlayer(activePlayer.name);
-    gameBoard.checkWinner(activePlayer);
+    gameBoard.checkWinner(activePlayer, player1, player2);
   };
 
   const placeMarker = function (clickedCell) {
