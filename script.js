@@ -149,15 +149,13 @@ const GameDisplay = (function () {
   };
 
   // Show Player's Turn in DOM
-  const switchPlayer = function (currentPlayer) {
-    whoseTurn = currentPlayer;
-
-    if (whoseTurn.marker === "X") {
-      p1Turn.textContent = `${whoseTurn.name}` + "'s" + " turn!";
+  const showCurrentPlayer = function (currentPlayer) {
+    if (currentPlayer.marker === "X") {
+      p1Turn.textContent = `${currentPlayer.name}` + "'s" + " turn!";
       p2Turn.textContent = "";
-    } else if (whoseTurn.marker === "O") {
+    } else if (currentPlayer.marker === "O") {
       p1Turn.textContent = "";
-      p2Turn.textContent = `${whoseTurn.name}` + "'s" + " turn!";
+      p2Turn.textContent = `${currentPlayer.name}` + "'s" + " turn!";
     }
   };
 
@@ -215,7 +213,7 @@ const GameDisplay = (function () {
   return {
     addStartHandler,
     addClickHandler,
-    switchPlayer,
+    showCurrentPlayer,
     showWinScreen,
     showScores,
     newRoundHandler,
@@ -232,12 +230,14 @@ const GamePlay = (function () {
   let tieCount = 0;
   let result = "";
 
-  const startGame = function (p1, p2) {
+  const startGame = function (p1Name, p2Name) {
     isPlaying = true;
-    player1 = p1;
-    player2 = p2;
+    player1 = Player(p1Name);
+    player2 = Player(p2Name);
 
     activePlayer = player1;
+
+    GameDisplay.showCurrentPlayer(activePlayer.name);
   };
 
   const placeMarker = function (clickedCell) {
@@ -249,8 +249,8 @@ const GamePlay = (function () {
       moves++;
       //console.log(moves);
 
-      checkTie();
-      checkWinner();
+      gameBoard.checkTie();
+      gameBoard.checkWinner();
       if (!winner) {
         if (activePlayer === player1) {
           activePlayer = player2;
@@ -258,7 +258,7 @@ const GamePlay = (function () {
           activePlayer = player1;
         }
         let currentPlayer = activePlayer;
-        GameDisplay.switchPlayer(currentPlayer);
+        GameDisplay.showCurrentPlayer(currentPlayer);
       } else if (winner || moves === 9) {
         isPlaying = false;
       }
