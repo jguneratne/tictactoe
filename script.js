@@ -262,11 +262,14 @@ const GamePlay = (function () {
       if (!winner) {
         if (activePlayer === player1) {
           activePlayer = player2;
+          gameBoard.checkWinner(activePlayer, player1, player2);
         } else {
           activePlayer = player1;
+          gameBoard.checkWinner(activePlayer, player1, player2);
         }
         let currentPlayer = activePlayer;
         GameDisplay.showCurrentPlayer(currentPlayer);
+        gameBoard.checkWinner(activePlayer, player1, player2);
       } else if (winner || moves === 9) {
         isPlaying = false;
       }
