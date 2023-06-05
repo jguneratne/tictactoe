@@ -163,6 +163,17 @@ const GameDisplay = (function () {
     });
   };
 
+  // Show Player's Turn in DOM
+  const showCurrentPlayer = function (currentPlayer) {
+    if (currentPlayer.marker === "X") {
+      p1Turn.textContent = `${currentPlayer.name}` + "'s" + " turn!";
+      p2Turn.textContent = "";
+    } else if (currentPlayer.marker === "O") {
+      p1Turn.textContent = "";
+      p2Turn.textContent = `${currentPlayer.name}` + "'s" + " turn!";
+    }
+  };
+
   // Click Handler to place markers on board
   let clickHandler = null;
   const gameContainer = document.querySelector(".game-box");
@@ -187,17 +198,6 @@ const GameDisplay = (function () {
       clickHandler = clickHandlerFunction;
     } else {
       throw new Error("Click Handler must be a function!");
-    }
-  };
-
-  // Show Player's Turn in DOM
-  const showCurrentPlayer = function (currentPlayer) {
-    if (currentPlayer.marker === "X") {
-      p1Turn.textContent = `${currentPlayer.name}` + "'s" + " turn!";
-      p2Turn.textContent = "";
-    } else if (currentPlayer.marker === "O") {
-      p1Turn.textContent = "";
-      p2Turn.textContent = `${currentPlayer.name}` + "'s" + " turn!";
     }
   };
 
