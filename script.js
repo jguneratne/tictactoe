@@ -19,8 +19,13 @@ const gameBoard = (function () {
     return Array.from(board);
   };
 
-  const checkWinner = function () {
-    const winArray = ["X", "X", "X"] || ["O", "O", "O"];
+  const checkWinner = function (activePlayer) {
+    console.log(activePlayer);
+    const winArray = [
+      `${activePlayer.marker}`,
+      `${activePlayer.marker}`,
+      `${activePlayer.marker}`,
+    ];
 
     let row1 = Array.from([getBoard()[0], getBoard()[1], getBoard()[2]]);
 
@@ -67,7 +72,7 @@ const gameBoard = (function () {
     }
   };
 
-  const checkTie = function () {
+  const checkTie = function (moves) {
     if (moves === 9 && !winner) {
       tieCount++;
       result = "It's a tie!";
@@ -233,13 +238,14 @@ const GamePlay = (function () {
   const startGame = function (p1Name, p2Name) {
     isPlaying = true;
     player1 = Player(p1Name, "X", 0);
-    console.log(player1);
+    //console.log(player1);
     player2 = Player(p2Name, "O", 0);
-    console.log(player2);
+    // console.log(player2);
 
     activePlayer = player1;
 
     GameDisplay.showCurrentPlayer(activePlayer.name);
+    gameBoard.checkWinner(activePlayer);
   };
 
   const placeMarker = function (clickedCell) {
@@ -249,6 +255,7 @@ const GamePlay = (function () {
       gameBoard.update(clickedCell, `${activePlayer.marker}`);
       console.log(gameBoard.getBoard());
       moves++;
+      gameBoard.checkTie(moves);
       //console.log(moves);
 
       gameBoard.checkTie();
