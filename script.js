@@ -20,11 +20,7 @@ const gameBoard = (function () {
   };
 
   const checkWinner = function () {
-    const winArray = [
-      `${activePlayer.marker}`,
-      `${activePlayer.marker}`,
-      `${activePlayer.marker}`,
-    ];
+    const winArray = ["X", "X", "X"] || ["O", "O", "O"];
 
     let row1 = Array.from([getBoard()[0], getBoard()[1], getBoard()[2]]);
 
@@ -81,8 +77,10 @@ const gameBoard = (function () {
 
   return {
     update,
-    reset,
     getBoard,
+    reset,
+    checkWinner,
+    checkTie,
   };
 })();
 
@@ -111,16 +109,15 @@ const GameDisplay = (function () {
     namesForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const playerNames = new FormData(names);
-      const getNames = [...playerNames.values()];
+      const data = new FormData(names);
 
-      let firstPlayer = Player(getNames[0], "X", 0);
-      let secondPlayer = Player(getNames[1], "O", 0);
+      const p1Name = data.get("pX-name");
+      const p2Name = data.get("pO-name");
 
-      GamePlay.startGame(firstPlayer, secondPlayer);
+      startHandler(p1Name, p2Name);
 
       homeScreen.style.display = "none";
-      p1Turn.textContent = `${firstPlayer.name}` + "'s" + " turn!";
+      p1Turn.textContent = `${p1Name}` + "'s" + " turn!";
     });
   };
 
