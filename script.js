@@ -51,12 +51,18 @@ const gameBoard = (function () {
       console.log("We have a winner!");
       winner = true;
       checkTie(winner);
+      return true;
+    } else {
+      return false;
     }
   };
 
   const checkTie = function (moves, winner) {
     if (moves === 9 && !winner) {
       console.log("It's a tie!");
+      return true;
+    } else {
+      return false;
     }
   };
 
