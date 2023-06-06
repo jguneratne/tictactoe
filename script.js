@@ -282,7 +282,7 @@ const GamePlay = (function () {
   let moves = 0;
   let winner = "";
   let tieCount = 0;
-  let result = "";
+  let gameResult = "";
 
   const startGame = function (p1Name, p2Name) {
     isPlaying = true;
@@ -297,31 +297,58 @@ const GamePlay = (function () {
     gameBoard.checkWinner(`${activePlayer.marker}`, player1, player2);
   };
 
-  const placeMarker = function (clickedCell) {
-    if (isPlaying === false) {
-      return;
+  const switchPlayes = function () {
+    if (activePlayer === player1) {
+      activePlayer = player2;
     } else {
-      gameBoard.update(clickedCell, `${activePlayer.marker}`);
-      console.log(gameBoard.getBoard());
-      moves++;
-      gameBoard.checkTie(moves);
-      //console.log(moves);
+      activePlayer = player1;
+    }
+    let currentPlayer = activePlayer;
+  };
 
-      gameBoard.checkTie();
-      gameBoard.checkWinner();
-      if (!winner) {
-        if (activePlayer === player1) {
-          activePlayer = player2;
-        } else {
-          activePlayer = player1;
-        }
-        let currentPlayer = activePlayer;
-        GameDisplay.showCurrentPlayer(currentPlayer);
-      } else if (winner || moves === 9) {
-        isPlaying = false;
-      }
+  const placeMarker = function (clickedCell) {
+    const clickResult = gameBoard.update(clickedCell, `${activePlayer.marker}`);
+
+    if (clickResult) {
+      moves++;
+      GameDisplay.addClickHandler(placeMarker);
+    }
+
+    if (gameBoard.checkWinner) {
+      GameDisplay.showWinScreen(winner, tie, result);
+    } else if (gameBoard.checkTie) {
+      GameDisplay.showWinScreen(winner, tie, result);
+    } else {
+      switchPlayes();
+      GameDisplay.showCurrentPlayer(activePlayer.name);
     }
   };
+
+  // const placeMarker = function (clickedCell) {
+  //   if (isPlaying === false) {
+  //     return;
+  //   } else {
+  //     gameBoard.update(clickedCell, `${activePlayer.marker}`);
+  //     console.log(gameBoard.getBoard());
+  //     moves++;
+  //     gameBoard.checkTie(moves);
+  //     //console.log(moves);
+
+  //     gameBoard.checkTie();
+  //     gameBoard.checkWinner();
+  //     if (!winner) {
+  //       if (activePlayer === player1) {
+  //         activePlayer = player2;
+  //       } else {
+  //         activePlayer = player1;
+  //       }
+  //       let currentPlayer = activePlayer;
+  //       GameDisplay.showCurrentPlayer(currentPlayer);
+  //     } else if (winner || moves === 9) {
+  //       isPlaying = false;
+  //     }
+  //   }
+  // };
 
   const newRound = function () {
     gameBoard.reset();
