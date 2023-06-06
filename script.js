@@ -19,38 +19,38 @@ const gameBoard = (function () {
     return Array.from(board);
   };
 
-  const checkWinner = function () {
+  const checkWinner = function (marker) {
     let winner = false;
 
     if (
-      (getBoard()[0] !== "" &&
-        getBoard()[0] === getBoard()[1] &&
-        getBoard()[1] === getBoard()[2]) ||
-      (getBoard()[3] !== "" &&
-        getBoard()[3] === getBoard()[4] &&
-        getBoard()[4] === getBoard()[5]) ||
-      (getBoard()[6] !== "" &&
-        getBoard()[6] === getBoard()[7] &&
-        getBoard()[7] === getBoard()[8]) ||
-      (getBoard()[0] !== "" &&
-        getBoard()[0] === getBoard()[3] &&
-        getBoard()[3] === getBoard()[6]) ||
-      (getBoard()[1] !== "" &&
-        getBoard()[1] === getBoard()[4] &&
-        getBoard()[4] === getBoard()[7]) ||
-      (getBoard()[2] !== "" &&
-        getBoard()[2] === getBoard()[5] &&
-        getBoard()[5] === getBoard()[8]) ||
-      (getBoard()[0] !== "" &&
-        getBoard()[0] === getBoard()[4] &&
-        getBoard()[4] === getBoard()[8]) ||
-      (getBoard()[2] !== "" &&
-        getBoard()[2] === getBoard()[4] &&
-        getBoard()[4] === getBoard()[6])
+      (getBoard()[0] === marker &&
+        getBoard()[1] === marker &&
+        getBoard()[2] === marker) ||
+      (getBoard()[3] === marker &&
+        getBoard()[4] === marker &&
+        getBoard()[5] === marker) ||
+      (getBoard()[6] === marker &&
+        getBoard()[7] === marker &&
+        getBoard()[8] === marker) ||
+      (getBoard()[0] === marker &&
+        getBoard()[3] === marker &&
+        getBoard()[6] === marker) ||
+      (getBoard()[1] === marker &&
+        getBoard()[4] === marker &&
+        getBoard()[7] === marker) ||
+      (getBoard()[2] === marker &&
+        getBoard()[5] === marker &&
+        getBoard()[8] === marker) ||
+      (getBoard()[0] === marker &&
+        getBoard()[4] === marker &&
+        getBoard()[8] === marker) ||
+      (getBoard()[2] === marker &&
+        getBoard()[4] === marker &&
+        getBoard()[6] === marker)
     ) {
       console.log("We have a winner!");
-      checkTie(winner);
       winner = true;
+      checkTie(winner);
     }
   };
 
@@ -227,7 +227,7 @@ const GamePlay = (function () {
     GameDisplay.showCurrentPlayer(activePlayer.name);
   };
 
-  const switchPlayes = function () {
+  const switchPlayers = function () {
     if (activePlayer === player1) {
       activePlayer = player2;
     } else {
@@ -247,25 +247,23 @@ const GamePlay = (function () {
 
       if (clickResult) {
         moves++;
+        gameBoard.checkTie(moves);
       }
 
-      if (gameBoard.checkWinner()) {
-        if (winner === player1) {
-          player1.winCount++;
-          result = player1.name + " wins!";
-          setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
-        } else if (winner === player2) {
-          player2.winCount++;
-          result = player2.name + " wins!";
-          setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
-        }
-      } else if (gameBoard.checkTie(moves)) {
-        winner;
-        tieCount++;
-        result = "It's a tie!";
+      if (gameBoard.checkWinner(activePlayer.marker)) {
+        winner = `${activePlayer.name}`;
+        console.log(winner);
+        activePlayer.winCount++;
+        console.log(activePlayer.winCount);
+        result = `${activePlayer.name}` + " wins!";
+        console.log(result);
         setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
+        // } else if (gameBoard.checkTie) {
+        //   tieCount++;
+        //   result = "It's a tie!";
+        //   setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
       } else {
-        switchPlayes();
+        switchPlayers();
         GameDisplay.showCurrentPlayer(activePlayer.name);
       }
     }
