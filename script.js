@@ -23,108 +23,39 @@ const gameBoard = (function () {
     let winner = false;
 
     if (
-      getBoard()[0] !== "" &&
-      getBoard()[0] === getBoard()[1] &&
-      getBoard()[1] === getBoard()[2]
+      (getBoard()[0] !== "" &&
+        getBoard()[0] === getBoard()[1] &&
+        getBoard()[1] === getBoard()[2]) ||
+      (getBoard()[3] !== "" &&
+        getBoard()[3] === getBoard()[4] &&
+        getBoard()[4] === getBoard()[5]) ||
+      (getBoard()[6] !== "" &&
+        getBoard()[6] === getBoard()[7] &&
+        getBoard()[7] === getBoard()[8]) ||
+      (getBoard()[0] !== "" &&
+        getBoard()[0] === getBoard()[3] &&
+        getBoard()[3] === getBoard()[6]) ||
+      (getBoard()[1] !== "" &&
+        getBoard()[1] === getBoard()[4] &&
+        getBoard()[4] === getBoard()[7]) ||
+      (getBoard()[2] !== "" &&
+        getBoard()[2] === getBoard()[5] &&
+        getBoard()[5] === getBoard()[8]) ||
+      (getBoard()[0] !== "" &&
+        getBoard()[0] === getBoard()[4] &&
+        getBoard()[4] === getBoard()[8]) ||
+      (getBoard()[2] !== "" &&
+        getBoard()[2] === getBoard()[4] &&
+        getBoard()[4] === getBoard()[6])
     ) {
-      // win logic
       console.log("We have a winner!");
+      checkTie(winner);
       winner = true;
     }
-
-    if (
-      getBoard()[3] !== "" &&
-      getBoard()[3] === getBoard()[4] &&
-      getBoard()[4] === getBoard()[5]
-    ) {
-      // win logic
-      console.log("We have a winner!");
-      winner = true;
-    }
-
-    if (
-      getBoard()[6] !== "" &&
-      getBoard()[6] === getBoard()[7] &&
-      getBoard()[7] === getBoard()[8]
-    ) {
-      // win logic
-      console.log("We have a winner!");
-      winner = true;
-    }
-
-    if (
-      getBoard()[0] !== "" &&
-      getBoard()[0] === getBoard()[3] &&
-      getBoard()[3] === getBoard()[6]
-    ) {
-      // win logic
-      console.log("We have a winner!");
-      winner = true;
-    }
-
-    if (
-      getBoard()[1] !== "" &&
-      getBoard()[1] === getBoard()[4] &&
-      getBoard()[4] === getBoard()[7]
-    ) {
-      // win logic
-      console.log("We have a winner!");
-      winner = true;
-    }
-
-    if (
-      getBoard()[2] !== "" &&
-      getBoard()[2] === getBoard()[5] &&
-      getBoard()[5] === getBoard()[8]
-    ) {
-      // win logic
-      console.log("We have a winner!");
-      winner = true;
-    }
-
-    if (
-      getBoard()[0] !== "" &&
-      getBoard()[0] === getBoard()[4] &&
-      getBoard()[4] === getBoard()[8]
-    ) {
-      // win logic
-      console.log("We have a winner!");
-      winner = true;
-    }
-
-    if (
-      getBoard()[2] !== "" &&
-      getBoard()[2] === getBoard()[4] &&
-      getBoard()[4] === getBoard()[6]
-    ) {
-      // win logic
-      console.log("We have a winner!");
-      winner = true;
-    }
-
-    checkTie(winner);
-
-    //   winner = activePlayer;
-    //   checkTie(winner);
-    //   console.log(`${activePlayer.name}` + " is the winner!");
-
-    //   if (winner === player1) {
-    //     player1.winCount++;
-    //     result = player1.name + " wins!";
-    //     setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
-    //   } else if (winner === player2) {
-    //     player2.winCount++;
-    //     result = player2.name + " wins!";
-    //     setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
-    //   }
-    // }
   };
 
   const checkTie = function (moves, winner) {
     if (moves === 9 && !winner) {
-      //  tieCount++;
-      // result = "It's a tie!";
-      // setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
       console.log("It's a tie!");
     }
   };
@@ -294,7 +225,6 @@ const GamePlay = (function () {
     activePlayer = player1;
 
     GameDisplay.showCurrentPlayer(activePlayer.name);
-    gameBoard.checkWinner(`${activePlayer.marker}`, player1, player2);
   };
 
   const switchPlayes = function () {
@@ -307,48 +237,39 @@ const GamePlay = (function () {
   };
 
   const placeMarker = function (clickedCell) {
-    const clickResult = gameBoard.update(clickedCell, `${activePlayer.marker}`);
-
-    if (clickResult) {
-      moves++;
-      GameDisplay.addClickHandler(placeMarker);
-    }
-
-    if (gameBoard.checkWinner) {
-      GameDisplay.showWinScreen(winner, tie, result);
-    } else if (gameBoard.checkTie) {
-      GameDisplay.showWinScreen(winner, tie, result);
+    if (isPlaying === false) {
+      return;
     } else {
-      switchPlayes();
-      GameDisplay.showCurrentPlayer(activePlayer.name);
+      const clickResult = gameBoard.update(
+        clickedCell,
+        `${activePlayer.marker}`
+      );
+
+      if (clickResult) {
+        moves++;
+      }
+
+      if (gameBoard.checkWinner()) {
+        if (winner === player1) {
+          player1.winCount++;
+          result = player1.name + " wins!";
+          setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
+        } else if (winner === player2) {
+          player2.winCount++;
+          result = player2.name + " wins!";
+          setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
+        }
+      } else if (gameBoard.checkTie(moves)) {
+        winner;
+        tieCount++;
+        result = "It's a tie!";
+        setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
+      } else {
+        switchPlayes();
+        GameDisplay.showCurrentPlayer(activePlayer.name);
+      }
     }
   };
-
-  // const placeMarker = function (clickedCell) {
-  //   if (isPlaying === false) {
-  //     return;
-  //   } else {
-  //     gameBoard.update(clickedCell, `${activePlayer.marker}`);
-  //     console.log(gameBoard.getBoard());
-  //     moves++;
-  //     gameBoard.checkTie(moves);
-  //     //console.log(moves);
-
-  //     gameBoard.checkTie();
-  //     gameBoard.checkWinner();
-  //     if (!winner) {
-  //       if (activePlayer === player1) {
-  //         activePlayer = player2;
-  //       } else {
-  //         activePlayer = player1;
-  //       }
-  //       let currentPlayer = activePlayer;
-  //       GameDisplay.showCurrentPlayer(currentPlayer);
-  //     } else if (winner || moves === 9) {
-  //       isPlaying = false;
-  //     }
-  //   }
-  // };
 
   const newRound = function () {
     gameBoard.reset();
