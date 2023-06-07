@@ -17,18 +17,25 @@
   padding: 0;
   height: 100%;
   box-sizing: border-box;
+  color: var(--font-color);
+
+  --container-bg-color: #f6f6f6;
+  --head-foot-bg-color: #f7ea74;
+  --font-color: #00425e;
+  --home-win-bg-color: #3ab4f2;
 }
 
 .container {
   display: grid;
   grid-template-rows: 0.8fr 7.5fr 0.8fr;
   align-items: center;
+  background-color: var(--container-bg-color);
 }
 
 /* Header */
 
 header {
-  background-color: beige;
+  background-color: var(--head-foot-bg-color);
   grid-area: 1 / 1 / 2 / 2;
   text-align: center;
   font-family: "Pangolin", cursive;
@@ -53,7 +60,7 @@ header {
   border-radius: 1.5ch;
   outline: 1px solid black;
   outline-offset: -1ch;
-  background-color: lightblue;
+  background-color: var(--home-win-bg-color);
 }
 
 .home-screen {
@@ -69,7 +76,7 @@ header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
-  gap: 4ch;
+  gap: 2.5ch;
   font-size: 1.6ch;
 }
 
@@ -136,7 +143,7 @@ input[type="text"] {
   grid-template-rows: repeat(3, 1fr);
   gap: 1ch;
 
-  background-color: black;
+  background-color: var(--font-color);
   cursor: pointer;
 }
 
@@ -144,7 +151,7 @@ input[type="text"] {
   display: grid;
   align-content: center;
   justify-content: center;
-  background-color: white;
+  background-color: var(--container-bg-color);
   font-family: "Rock Salt", cursive;
   font-size: 3vw;
   color: black;
@@ -166,7 +173,6 @@ input[type="text"] {
 .p2-turn {
   font-family: "Pangolin", cursive;
   font-size: 3ch;
-  color: black;
 }
 
 .win-screen-container {
@@ -185,7 +191,7 @@ input[type="text"] {
   border-radius: 1.5ch;
   outline: 1px solid black;
   outline-offset: -1ch;
-  background-color: lightblue;
+  background-color: var(--home-win-bg-color);
   font-family: "Pangolin", cursive;
 
   display: grid;
@@ -272,7 +278,7 @@ input[type="text"] {
 /* Footer */
 
 footer {
-  background-color: beige;
+  background-color: var(--head-foot-bg-color);
   grid-area: 3 / 1 / 4 / 2;
 
   display: grid;
