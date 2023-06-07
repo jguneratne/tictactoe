@@ -252,6 +252,7 @@ input[type="text"] {
 .p2-score {
   text-align: center;
   font-family: "Pangolin", cursive;
+  font-size: 2.3ch;
   display: grid;
   grid-template-rows: 1fr 1.5fr;
   margin-top: 2ch;
@@ -260,8 +261,9 @@ input[type="text"] {
 .p1-tally,
 .p2-tally,
 .ties-tally {
-  font-size: 2.5ch;
   font-family: "Pangolin", cursive;
+  font-size: 2.1ch;
+  margin-top: -0.5ch;
 }
 
 /* Footer */
