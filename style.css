@@ -189,7 +189,7 @@ input[type="text"] {
   font-family: "Pangolin", cursive;
 
   display: grid;
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   justify-content: center;
 }
 
@@ -202,9 +202,6 @@ input[type="text"] {
 .ask-again {
   grid-area: 3/1/4/2;
   text-align: center;
-
-  display: grid;
-  align-content: center;
   font-family: "Pangolin", cursive;
 }
 
@@ -218,16 +215,19 @@ input[type="text"] {
 
 .yes {
   grid-area: 1/1/2/2;
-  width: 15ch;
-  height: 5ch;
-  font-family: "Pangolin", cursive;
 }
 
 .no {
   grid-area: 1/2/2/3;
+}
+
+.yes,
+.no {
   width: 15ch;
-  height: 5ch;
+  height: 3ch;
   font-family: "Pangolin", cursive;
+  font-size: 1.5ch;
+  margin-top: -1.5ch;
 }
 
 .scores {
