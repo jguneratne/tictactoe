@@ -239,7 +239,7 @@ const GamePlay = (function () {
   };
 
   const placeMarker = function (clickedCell) {
-    if (isPlaying === false) {
+    if (isPlaying === false || winner) {
       return;
     } else {
       const clickResult = gameBoard.update(
