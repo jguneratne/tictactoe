@@ -5,6 +5,13 @@
   src: url("fonts/pangolin-v11-latin-regular.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: "Rock Salt";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/rock-salt-v18-latin-regular.woff2") format("woff2");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -133,8 +140,8 @@ input[type="text"] {
   align-content: center;
   justify-content: center;
   background-color: white;
-  font-family: Arial;
-  font-size: 3ch;
+  font-family: "Rock Salt", cursive;
+  font-size: 5.9ch;
   color: black;
 }
 
