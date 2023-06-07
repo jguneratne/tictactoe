@@ -20,8 +20,6 @@ const gameBoard = (function () {
   };
 
   const checkWinner = function (marker) {
-    let winner = false;
-
     if (
       (getBoard()[0] === marker &&
         getBoard()[1] === marker &&
@@ -49,8 +47,6 @@ const gameBoard = (function () {
         getBoard()[6] === marker)
     ) {
       console.log("We have a winner!");
-      winner = true;
-      checkTie(winner);
       return true;
     } else {
       return false;
@@ -224,9 +220,7 @@ const GamePlay = (function () {
   const startGame = function (p1Name, p2Name) {
     isPlaying = true;
     player1 = Player(p1Name, "X", 0);
-    // console.log(player1);
     player2 = Player(p2Name, "O", 0);
-    // console.log(player2);
 
     activePlayer = player1;
 
@@ -264,10 +258,10 @@ const GamePlay = (function () {
         result = `${activePlayer.name}` + " wins!";
         console.log(result);
         setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
-        // } else if (gameBoard.checkTie) {
-        //   tieCount++;
-        //   result = "It's a tie!";
-        //   setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
+      } else if (gameBoard.checkTie(moves, winner)) {
+        tieCount++;
+        result = "It's a tie!";
+        setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
       } else {
         switchPlayers();
         GameDisplay.showCurrentPlayer(activePlayer.name);
