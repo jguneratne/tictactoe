@@ -264,7 +264,7 @@ const GamePlay = (function () {
         );
       } else if (gameBoard.checkTie(moves, winner)) {
         tieCount++;
-        result = "It's a tie!";
+        gameResult = "It's a tie!";
         setTimeout(
           GameDisplay.showWinScreen,
           200,
