@@ -233,9 +233,8 @@ const GamePlay = (function () {
     } else {
       activePlayer = player1;
     }
-    let currentPlayer = activePlayer;
 
-    GameDisplay.showCurrentPlayer(currentPlayer);
+    GameDisplay.showCurrentPlayer(activePlayer);
   };
 
   const placeMarker = function (clickedCell) {
