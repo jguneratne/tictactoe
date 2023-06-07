@@ -254,16 +254,25 @@ const GamePlay = (function () {
 
       if (gameBoard.checkWinner(activePlayer.marker)) {
         winner = `${activePlayer.name}`;
-        console.log(winner);
         activePlayer.winCount++;
-        console.log(activePlayer.winCount);
-        result = `${activePlayer.name}` + " wins!";
-        console.log(result);
-        setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
+        gameResult = `${activePlayer.name}` + " wins!";
+        setTimeout(
+          GameDisplay.showWinScreen,
+          200,
+          winner,
+          tieCount,
+          gameResult
+        );
       } else if (gameBoard.checkTie(moves, winner)) {
         tieCount++;
         result = "It's a tie!";
-        setTimeout(GameDisplay.showWinScreen, 200, winner, tieCount, result);
+        setTimeout(
+          GameDisplay.showWinScreen,
+          200,
+          winner,
+          tieCount,
+          gameResult
+        );
       } else {
         switchPlayers();
         GameDisplay.showCurrentPlayer(activePlayer.name);
