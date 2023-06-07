@@ -21,7 +21,8 @@
 
 .container {
   display: grid;
-  grid-template-rows: 0.6fr 7.5fr 0.6fr;
+  grid-template-rows: 0.8fr 7.5fr 0.8fr;
+  align-items: center;
 }
 
 /* Header */
@@ -31,7 +32,8 @@ header {
   grid-area: 1 / 1 / 2 / 2;
   text-align: center;
   font-family: "Pangolin", cursive;
-  padding-top: 0.5ch;
+  font-size: 2.2ch;
+  padding-top: 0.8ch;
 }
 
 /* Game Area */
@@ -141,7 +143,7 @@ input[type="text"] {
   justify-content: center;
   background-color: white;
   font-family: "Rock Salt", cursive;
-  font-size: 5.9ch;
+  font-size: 5.5ch;
   color: black;
 }
 
@@ -160,6 +162,7 @@ input[type="text"] {
 .p1-turn,
 .p2-turn {
   font-family: "Pangolin", cursive;
+  font-size: 3ch;
   color: black;
 }
 
