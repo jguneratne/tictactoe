@@ -70,6 +70,7 @@ header {
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
   gap: 4ch;
+  font-size: 1.6ch;
 }
 
 .btn-div {
@@ -80,8 +81,9 @@ header {
 
 input.start-game {
   width: 20ch;
-  height: 5ch;
+  height: 4ch;
   font-family: "Pangolin", cursive;
+  font-size: 1.5ch;
 }
 
 .playerX-name-div {
@@ -108,6 +110,7 @@ input[type="text"] {
   width: 25ch;
   height: 5ch;
   font-family: "Pangolin", cursive;
+  font-size: 1.2ch;
 }
 
 .game-box {
