@@ -159,7 +159,7 @@ input[type="text"] {
   justify-content: center;
   background-color: var(--container-bg-color);
   font-family: "Rock Salt", cursive;
-  font-size: 3vw;
+  font-size: 4ch;
   color: black;
 }
 
@@ -167,18 +167,25 @@ input[type="text"] {
   grid-area: 3 / 1 / 4 / 2;
   justify-self: center;
   margin-top: 1.5ch;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 5ch;
 }
 
 .p2-div {
   grid-area: 3 / 3 / 4 / 4;
   justify-self: center;
   margin-top: 1.5ch;
+  width: 100%;
+  display: flex;
+  padding-left: 5ch;
 }
 
 .p1-turn,
 .p2-turn {
   font-family: "Pangolin", cursive;
-  font-size: 3ch;
+  font-size: 3.5ch;
 }
 
 .win-screen-container {
