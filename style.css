@@ -20,7 +20,7 @@
   color: var(--font-color);
 
   --container-bg-color: #f6f6f6;
-  --head-foot-bg-color: #9d53f7;
+  --head-foot-bg-color: #af76f4;
   --head-foot-font-color: #02202a;
   --font-color: #00425e;
   --home-win-bg-color: #37b6f6;
@@ -74,6 +74,11 @@ h1 {
   grid-template-rows: 1fr 1.6fr 1.8fr;
   justify-items: center;
   font-family: "Pangolin", cursive;
+}
+
+.required {
+  grid-area: 1 / 1 / 2 / 2;
+  margin-top: 3ch;
 }
 
 .names {
