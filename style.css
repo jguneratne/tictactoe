@@ -24,6 +24,7 @@
   --head-foot-font-color: #02202a;
   --font-color: #00425e;
   --home-win-bg-color: #37b6f6;
+  --focus-color: #8b3aed;
 }
 
 .container {
@@ -52,8 +53,6 @@ h1 {
 /* Game Area */
 
 .home-container {
-  /* display: none; */
-
   position: absolute;
 
   left: 0;
@@ -102,6 +101,8 @@ input.start-game {
   height: 4ch;
   font-family: "Pangolin", cursive;
   font-size: 1.5ch;
+  border-radius: 1ch;
+  border: none;
 }
 
 .playerX-name-div {
@@ -129,7 +130,18 @@ input[type="text"] {
   height: 4ch;
   font-family: "Pangolin", cursive;
   font-size: 1.2ch;
+  border-radius: 1ch;
+  border: none;
 }
+
+input[type="text"]:focus,
+input.start-game:focus {
+  border: 2px solid var(--focus-color);
+  outline: 2px var(--focus-color);
+  outline-offset: none;
+}
+
+/* Game Play Area */
 
 .game-box {
   display: grid;
@@ -193,6 +205,8 @@ input[type="text"] {
   font-size: 3.5ch;
 }
 
+/* Win Screen */
+
 .win-screen-container {
   display: none;
 }
@@ -252,6 +266,16 @@ input[type="text"] {
   font-family: "Pangolin", cursive;
   font-size: 1.5ch;
   margin-top: -1.5ch;
+
+  border-radius: 1ch;
+  border: none;
+}
+
+.yes:focus,
+.no:focus {
+  border: 2px solid var(--focus-color);
+  outline: 2px var(--focus-color);
+  outline-offset: none;
 }
 
 .scores {
