@@ -20,7 +20,8 @@
   color: var(--font-color);
 
   --container-bg-color: #f6f6f6;
-  --head-foot-bg-color: #f7ea74;
+  --head-foot-bg-color: #9d53f7;
+  --head-foot-font-color: #02202a;
   --font-color: #00425e;
   --home-win-bg-color: #3ab4f2;
 }
@@ -40,7 +41,12 @@ header {
   text-align: center;
   font-family: "Pangolin", cursive;
   font-size: 2.2ch;
+
   padding-top: 0.8ch;
+}
+
+h1 {
+  color: var(--head-foot-font-color);
 }
 
 /* Game Area */
@@ -294,6 +300,7 @@ footer p {
   height: min-content;
   justify-self: end;
   margin-right: 1ch;
+  color: var(--head-foot-font-color);
 }
 
 footer img {
